@@ -14,13 +14,16 @@ export default {
 	},
 	async signup(req, res) {
 		try {
+			console.log("hi")
 			User.find({email:req.body.data.email}).exec()
 			.then(async (user)=>{
 				if(user.length>=1)
 				{
+					console.log("hi")
 					res.json({ code: 'Email Address already exist' });
 				}
 				else{
+					console.log("hi1")
 					let data = req.body.data;
 					var hashedPassword=bcrypt.hashSync(data.password, 10);
 					let userData;
@@ -34,13 +37,14 @@ export default {
 							coverPhoto:data.coverPhoto, //img
 							phoneNumber:  data.phoneNumber,
 							userType:	  data.userType,
-							email: {
-								type: String, 
-								required:true,
-								unique:true,
-							// match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, res.json({ code: 'Email Address already exist' })]
-							},
-							Truck:[{
+							// email: {
+							// 	type: String, 
+							// 	required:true,
+							// 	unique:true,
+							// // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, res.json({ code: 'Email Address already exist' })]
+							// },
+							Truck:[
+								{
 								truckLogo:data.truckLogo,//img
 								truckInfo:{
 									truckName:data.truckName,
@@ -68,6 +72,7 @@ export default {
 								profilePhoto: data.profilePhoto,
 								phoneNumber:  data.phoneNumber,
 								userType:	  data.userType,
+								Language: data.Language
 							};
 					}
 					else{
@@ -84,7 +89,6 @@ export default {
 			// let reqBody = req.body;
 		
 		} catch (e) {
-			console.log('error creating New user', e);
 			res.json({ code: 'ABT0001' });
 		}
 	},	

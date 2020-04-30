@@ -14,7 +14,8 @@ const Schema = new mongoose.Schema({
     updated_at: Date,
     userType:String,
     isAdmin: {type: Boolean, default: false},
-    Truck:Array
+    Truck:Array,
+    Language: String
 });
 
 export const User = mongoose.model('User', Schema);
