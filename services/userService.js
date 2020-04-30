@@ -14,7 +14,7 @@ export default {
 	},
 	async signup(req, res) {
 		try {
-			console.log("hi")
+			console.log(req.body)
 			User.find({email:req.body.data.email}).exec()
 			.then(async (user)=>{
 				if(user.length>=1)
@@ -23,7 +23,7 @@ export default {
 					res.json({ code: 'Email Address already exist' });
 				}
 				else{
-					console.log("hi1")
+					console.log(req.body.data);
 					let data = req.body.data;
 					var hashedPassword=bcrypt.hashSync(data.password, 10);
 					let userData;
