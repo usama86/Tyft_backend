@@ -14,16 +14,13 @@ export default {
 	},
 	async signup(req, res) {
 		try {
-			console.log("hi")
 			User.find({email:req.body.data.email}).exec()
 			.then(async (user)=>{
 				if(user.length>=1)
 				{
-					console.log("hi")
 					res.json({ code: 'Email Address already exist' });
 				}
 				else{
-					console.log("hi1")
 					let data = req.body.data;
 					var hashedPassword=bcrypt.hashSync(data.password, 10);
 					let userData;
@@ -60,7 +57,11 @@ export default {
 									instagram:data.instagram,
 									twitter:data.twitter
 								},
-								Menu:data.Menu
+								selectedServingCusines:data.selectedServingCusines,
+								Menu:data.Menu,
+								status:'Close',
+								rating:0,
+								customerReview:[]
 							}]
 						};
 					}
@@ -111,7 +112,8 @@ export default {
 					const token=	jwt.sign({
 							email:user[0].email,
 							userId:user[0]._id,
-
+							userType:user[0].userType,
+							profileName:user[0].profileName
 						},"Bearer",  //process.env.xyz
 						{
 							expiresIn: "1h"

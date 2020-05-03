@@ -15,7 +15,8 @@ const Schema = new mongoose.Schema({
     userType:String,
     isAdmin: {type: Boolean, default: false},
     Truck:Array,
-    Language: String
+    Language: String,
+    selectedServingCusines: Array
 });
 
 export const User = mongoose.model('User', Schema);
