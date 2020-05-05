@@ -34,12 +34,6 @@ export default {
 							coverPhoto:data.coverPhoto, //img
 							phoneNumber:  data.phoneNumber,
 							userType:	  data.userType,
-							// email: {
-							// 	type: String, 
-							// 	required:true,
-							// 	unique:true,
-							// // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, res.json({ code: 'Email Address already exist' })]
-							// },
 							Truck:[
 								{
 								truckLogo:data.truckLogo,//img
