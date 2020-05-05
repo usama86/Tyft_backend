@@ -48,10 +48,12 @@ app.use('/api/', apiLimiter);
 
 
 //let indexRouter = require('./routes/index');
-let usersRouter = require('./routes/users')(express.Router());;
+let usersRouter = require('./routes/users')(express.Router());
+let SupplierRouter  = require('./routes/Supplier')(express.Router());
 
 //app.use('/', indexRouter);
 app.use('/api/users', usersRouter);
+app.use('/api/supplier', SupplierRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
