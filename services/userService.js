@@ -1,7 +1,6 @@
 import { User } from '../models/userModel';
 const jwt = require("jsonwebtoken");
 var bcrypt = require('bcryptjs');
-
 export default {
 	async getAllUser(req, res) {
 		try {
@@ -14,6 +13,7 @@ export default {
 	},
 	async signup(req, res) {
 		try {
+			console.log(req.file)
 			User.find({email:req.body.data.email}).exec()
 			.then(async (user)=>{
 				if(user.length>=1)
@@ -30,8 +30,8 @@ export default {
 							email: data.email,
 							password: hashedPassword,
 							profileName : data.profileName,
-							profilePhoto: data.profilePhoto,//img
-							coverPhoto:data.coverPhoto, //img
+							profilePhoto: req.file.path,//img
+							coverPhoto:	  req.file.path, //img
 							phoneNumber:  data.phoneNumber,
 							userType:	  data.userType,
 							Truck:[
