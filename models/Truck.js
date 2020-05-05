@@ -7,16 +7,26 @@ const Schema = new mongoose.Schema({
             truckEmail:String,
             truckCity:String,
             truckWebsite:String,
-            schedule:Array,
-            socialMedia:[
+            schedule:[{
+                day: String, 
+                working: Boolean, 
+                opening: String, 
+                closing: String
+            }],
+            socialMedia:
             {
                 facebook:String,
                 instagram:String,
                 twitter:String
-            }
-            ],
-            selectedServingCusines:Array,
-            Menu:Array,
+            },
+            selectedServingCusines:Object,
+            Menu:[{
+                id: Number,
+                name: String,
+                price: Number,
+                description: String,
+                category: String,
+            }],
             status:{type:String, default: "Close"},
             rating:{type:Number, default: 0},
             customerReview:Array,
