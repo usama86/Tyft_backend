@@ -4,8 +4,7 @@ const Schema = new mongoose.Schema({
     profilePhoto: String,
     email: {
         type: String, 
-        required:true,
-        unique:true,
+        required:[true,"Email can not be empty"]
        // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, res.json({ code: 'Email Address already exist' })]
     },
     password: {type: String, required:true},
@@ -14,7 +13,7 @@ const Schema = new mongoose.Schema({
     updated_at: Date,
     userType:String,
     isAdmin: {type: Boolean, default: false},
-    Truck:Array,
+    truck:{type: mongoose.Schema.Types.ObjectId, ref: 'Truck'},
     Language: String,
     selectedServingCusines: Array
 });

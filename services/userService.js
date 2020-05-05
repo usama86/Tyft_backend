@@ -1,4 +1,5 @@
 import { User } from '../models/userModel';
+import { Truck } from './../models/Truck';
 const jwt = require("jsonwebtoken");
 var bcrypt = require('bcryptjs');
 export default {
@@ -26,31 +27,16 @@ export default {
 					let userData;
 					if(data.userType==='Supplier')
 					{
-						userData = {
-							email: data.email,
-							password: hashedPassword,
-							profileName : data.profileName,
-							profilePhoto: req.file.path,//img
-							coverPhoto:	  req.file.path, //img
-							phoneNumber:  data.phoneNumber,
-							userType:	  data.userType,
-							// email: {
-							// 	type: String, 
-							// 	required:true,
-							// 	unique:true,
-							// // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, res.json({ code: 'Email Address already exist' })]
-							// },
-							Truck:[
-								{
-								truckLogo:data.truckLogo,//img
-								truckInfo:{
-									truckName:data.truckName,
-									businessDesc:data.businessDesc,
-									truckContact:data.truckContact,
-									truckEmail:data.truckEmail,
-									truckCity:data.truckCity,
-									truckWebsite:data.truckWebsite,
-								},
+						
+						truckData = {
+								truckLogo:  req.file.path,//img
+								coverPhoto: req.file.path, //img
+								truckName:  data.truckName,
+								businessDesc:data.businessDesc,
+								truckContact:data.truckContact,
+								truckEmail:data.truckEmail,
+								truckCity:data.truckCity,
+								truckWebsite:data.truckWebsite,
 								schedule:data.schedule,
 								socialMedia:{
 									facebook:data.facebook,
@@ -58,12 +44,24 @@ export default {
 									twitter:data.twitter
 								},
 								selectedServingCusines:data.selectedServingCusines,
-								Menu:data.Menu,
-								status:'Close',
-								rating:0,
-								customerReview:[]
-							}]
+								Menu:data.Menu,					
+						}
+						const TruckDatas = new Truck(truckData);
+						var Rdata= await   TruckDatas.save();
+						userData = {
+							email: data.email,
+							password: hashedPassword,
+							profileName : data.profileName,
+							profilePhoto: req.file.path,//img
+							phoneNumber:  data.phoneNumber,
+							userType:	  data.userType,
+							truck:Rdata._id
 						};
+
+						const userDatas = new User(userData);
+						await userDatas.save();
+					
+						res.json({ code: 'ABT0000' });
 					}
 					else if(data.userType==='Customer'){
 						userData = {
@@ -75,16 +73,14 @@ export default {
 								userType:	  data.userType,
 								Language: data.Language
 							};
+							const userDatas = new User(userData);
+							await userDatas.save();
+							res.json({ code: 'ABT0000' });
 					}
 					else{
 
 					}
 					
-					
-		
-					const userDatas = new User(userData);
-					await userDatas.save();
-					res.json({ code: 'ABT0000' });
 				}
 			})
 			// let reqBody = req.body;
@@ -115,9 +111,9 @@ export default {
 							userType:user[0].userType,
 							profileName:user[0].profileName
 						},"Bearer",  //process.env.xyz
-						{
-							expiresIn: "1h"
-						},
+						// {
+						// 	expiresIn: "1h"
+						// },
 
 						)
 						return res.json({message:'Auth Successful',token:token})

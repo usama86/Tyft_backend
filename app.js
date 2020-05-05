@@ -6,12 +6,12 @@ var logger = require('morgan');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const config = require('config');
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv');
 
-// dotenv.cofig();n
+dotenv.config();
 const rateLimit = require('express-rate-limit');
 // Database connection setup
-mongoose.connect("mongodb://localhost/tyft",{ useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex:true });
+mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex:true });
 const db = mongoose.connection;
 db.on('error', function(err) {
 	console.error('connection error:', err);
