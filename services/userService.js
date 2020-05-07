@@ -15,7 +15,7 @@ export default {
   async signup(req, res) {
     try {
       //   console.log(req.files[0].path);
-      // console.log(req.body.email)
+       console.log(req.body.email)
       User.find({ email: req.body.email })
         .exec()
         .then(async (user) => {
@@ -24,7 +24,7 @@ export default {
             // console.log(user.email);
             res.json({ code: "Email Address already exist" });
           } else {
-            // console.log(req.files)
+             console.log(req.files)
             // console.log(req.files[0].path)
             // console.log(req.files[1].path)
             // console.log(req.files[2].path)
@@ -34,8 +34,8 @@ export default {
             let truckData;
             if (data.userType === "Supplier") {
               truckData = {
-                truckLogo: req.files[0].path, //img
-                coverPhoto: req.files[1].path, //img
+                // truckLogo: req.files[0].path, //img
+                // coverPhoto: req.files[1].path, //img
                 truckName: data.truckName,
                 businessDesc: data.businessDesc,
                 truckContact: data.truckContact,
