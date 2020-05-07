@@ -4,7 +4,8 @@ const Schema = new mongoose.Schema({
     profilePhoto: String,
     email: {
         type: String, 
-        required:[true,"Email can not be empty"]
+      //  required:[true,"Email can not be empty"]
+        unique:true,
        // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, res.json({ code: 'Email Address already exist' })]
     },
     password: {type: String, required:true},

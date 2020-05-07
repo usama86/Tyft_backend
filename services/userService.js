@@ -5,8 +5,8 @@ var bcrypt = require("bcryptjs");
 export default {
   async getAllUser(req, res) {
     try {
-      const posts = await User.find();
-      res.send(posts);
+      const Users = await User.find();
+      res.send(Users);
     } catch (e) {
       console.log("error getting forum posts", e);
       res.json({ code: "ABT0001" });
@@ -14,20 +14,28 @@ export default {
   },
   async signup(req, res) {
     try {
-      console.log(req.file);
-      User.find({ email: req.body.data.email })
+	//   console.log(req.files[0].path);
+	 // console.log(req.body.email)
+      User.find({ email: req.body.email })
         .exec()
         .then(async (user) => {
           if (user.length >= 1) {
+			//   console.log(user.length);
+			// console.log(user.email);	
             res.json({ code: "Email Address already exist" });
           } else {
-            let data = req.body.data;
+			console.log(req.files)
+			console.log(req.files[0].path)
+			console.log(req.files[1].path)
+			console.log(req.files[2].path)
+            let data = req.body;
             var hashedPassword = bcrypt.hashSync(data.password, 10);
-            let userData;
+			let userData;
+			let truckData;
             if (data.userType === "Supplier") {
               truckData = {
-                truckLogo: req.file.path, //img
-                coverPhoto: req.file.path, //img
+                truckLogo: req.files[0].path, //img
+                coverPhoto: req.files[1].path, //img
                 truckName: data.truckName,
                 businessDesc: data.businessDesc,
                 truckContact: data.truckContact,
@@ -42,19 +50,20 @@ export default {
                 },
                 selectedServingCusines: data.selectedServingCusines,
                 Menu: data.Menu,
-              };
+			  };
+			  console.log(truckData);
               const TruckDatas = new Truck(truckData);
               var Rdata = await TruckDatas.save();
               userData = {
                 email: data.email,
                 password: hashedPassword,
                 profileName: data.profileName,
-                profilePhoto: req.file.path, //img
+                profilePhoto: req.files[2].path, //img
                 phoneNumber: data.phoneNumber,
                 userType: data.userType,
                 truck: Rdata._id,
               };
-
+			  console.log(userData);
               const userDatas = new User(userData);
               await userDatas.save();
 
@@ -64,13 +73,14 @@ export default {
                 email: data.email,
                 password: hashedPassword,
                 profileName: data.profileName,
-                profilePhoto: data.profilePhoto,
+                profilePhoto: req.files[0].path,
                 phoneNumber: data.phoneNumber,
                 userType: data.userType,
                 Language: data.Language,
-              };
-              const userDatas = new User(userData);
-              await userDatas.save();
+			  };
+			  console.log(userData)
+            //   const userDatas = new User(userData);
+            //   await userDatas.save();
               res.json({ code: "ABT0000" });
             } else {
             }
