@@ -24,10 +24,10 @@ export default {
 			// console.log(user.email);	
             res.json({ code: "Email Address already exist" });
           } else {
-			console.log(req.files)
-			console.log(req.files[0].path)
-			console.log(req.files[1].path)
-			console.log(req.files[2].path)
+			// console.log(req.files)
+			// console.log(req.files[0].path)
+			// console.log(req.files[1].path)
+			// console.log(req.files[2].path)
             let data = req.body;
             var hashedPassword = bcrypt.hashSync(data.password, 10);
 			let userData;
@@ -58,7 +58,7 @@ export default {
                 email: data.email,
                 password: hashedPassword,
                 profileName: data.profileName,
-                profilePhoto: req.files[2].path, //img
+                // profilePhoto: req.files[2].path, //img
                 phoneNumber: data.phoneNumber,
                 userType: data.userType,
                 truck: Rdata._id,
@@ -73,14 +73,14 @@ export default {
                 email: data.email,
                 password: hashedPassword,
                 profileName: data.profileName,
-                profilePhoto: req.files[0].path,
+                // profilePhoto: req.files[0].path,
                 phoneNumber: data.phoneNumber,
                 userType: data.userType,
                 Language: data.Language,
 			  };
 			  console.log(userData)
-            //   const userDatas = new User(userData);
-            //   await userDatas.save();
+              const userDatas = new User(userData);
+              await userDatas.save();
               res.json({ code: "ABT0000" });
             } else {
             }
