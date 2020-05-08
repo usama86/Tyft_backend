@@ -5,13 +5,12 @@ var bcrypt = require("bcryptjs");
 export default {
   async getSupplier(req, res) {
     try {
-      const getSupplier = await User.find({_id:req.body.id});
-
-      const getTruckInfo = await Truck.find({_id:getSupplier.truck});
-
-      res.json({getSupplier,getTruckInfo});
+      // console.log(req.body.id);
+      const Supplier = await User.find({_id:req.body.id});
+      const TruckInfo = await Truck.find({_id:Supplier[0].truck});
+      res.json({Supplier,TruckInfo})
     } catch (e) {
-      console.log("error getting Supplier", e);
+      console.log("Error getting Supplier", e);
       res.json({ code: "ABT0001" });
     }
   },
