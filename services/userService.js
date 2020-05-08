@@ -14,28 +14,28 @@ export default {
   },
   async signup(req, res) {
     try {
-	//   console.log(req.files[0].path);
-	 // console.log(req.body.email)
+      //   console.log(req.files[0].path);
+       console.log(req.body.email)
       User.find({ email: req.body.email })
         .exec()
         .then(async (user) => {
           if (user.length >= 1) {
-			//   console.log(user.length);
-			// console.log(user.email);	
+            //   console.log(user.length);
+            // console.log(user.email);
             res.json({ code: "Email Address already exist" });
           } else {
-			// console.log(req.files)
-			// console.log(req.files[0].path)
-			// console.log(req.files[1].path)
-			// console.log(req.files[2].path)
+             console.log(req.files)
+            // console.log(req.files[0].path)
+            // console.log(req.files[1].path)
+            // console.log(req.files[2].path)
             let data = req.body;
             var hashedPassword = bcrypt.hashSync(data.password, 10);
-			let userData;
-			let truckData;
+            let userData;
+            let truckData;
             if (data.userType === "Supplier") {
               truckData = {
-                truckLogo: req.files[0].path, //img
-                coverPhoto: req.files[1].path, //img
+                // truckLogo: req.files[0].path, //img
+                // coverPhoto: req.files[1].path, //img
                 truckName: data.truckName,
                 businessDesc: data.businessDesc,
                 truckContact: data.truckContact,
@@ -50,8 +50,8 @@ export default {
                 },
                 selectedServingCusines: data.selectedServingCusines,
                 Menu: data.Menu,
-			  };
-			  console.log(truckData);
+              };
+              console.log(truckData);
               const TruckDatas = new Truck(truckData);
               var Rdata = await TruckDatas.save();
               userData = {
@@ -63,7 +63,7 @@ export default {
                 userType: data.userType,
                 truck: Rdata._id,
               };
-			  console.log(userData);
+              console.log(userData);
               const userDatas = new User(userData);
               await userDatas.save();
 
@@ -77,8 +77,8 @@ export default {
                 phoneNumber: data.phoneNumber,
                 userType: data.userType,
                 Language: data.Language,
-			  };
-			  console.log(userData)
+              };
+              console.log(userData);
               const userDatas = new User(userData);
               await userDatas.save();
               res.json({ code: "ABT0000" });
@@ -129,4 +129,5 @@ export default {
       res.json({ code: "ABT0001" });
     }
   },
+  
 };

@@ -1,7 +1,6 @@
 import userService from '../services/userService'; 
 import CheckAuth from './../middlewae/checkAuth';
 const multer = require('multer');
-
 var storage = multer.diskStorage({
 	destination: function(req,file,cb)
 	{
