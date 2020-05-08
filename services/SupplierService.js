@@ -33,7 +33,7 @@ export default {
               console.log(updateResult);
               res.json({code : "ABT0000"});
           } else {
-              res.json({code : "ABT0001"});
+              res.json({code : "Couldn't update status"});
           }
         
         })
