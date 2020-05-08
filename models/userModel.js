@@ -9,7 +9,7 @@ const Schema = new mongoose.Schema({
        // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, res.json({ code: 'Email Address already exist' })]
     },
     password: {type: String, required:true},
-    phoneNumber:Number,
+    phoneNumber:String,
     created_at: {type: Date, default: Date.now},
     updated_at: Date,
     userType:String,
