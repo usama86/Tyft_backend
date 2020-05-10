@@ -87,41 +87,33 @@ export default {
       res.json({ code: "ABT0001" });
     }
   },
-  async getMenu(req, res) {   //return the schedule of specific user, need to send truck id
-    try {
-      const TruckInfo = await Truck.find({ _id: req.body._id });
-      const MenuData = TruckInfo.Menu;
-      res.json({ code:"ABT0000", MenuData });
-    } catch (e) {
-      console.log("Error getting Menu", e);
+  async getAllTruck(req,res)
+  {
+    try{
+      const TruckInfo = await Truck.find();
+      res.json({  TruckInfo });
+    }catch (e) {
+      console.log("Error retriving Truck's");
       res.json({ code: "ABT0001" });
     }
   },
-  async updateMenu(req, res) {// _id of truck and schedule object to update
-    try {
-      let reqBody = req.body;
-      Truck.find({ _id: reqBody._id })
-        .exec()
-        .then(async (truck) => {
-          if (truck.length < 1) {
-            res.json({ code: "Truck ID doesn't exist" });
-          } else {
-            let updateResult = await Truck.update(
-              { _id: reqBody._id },
-              { $set: { Menu: reqBody.Menu } }
-            );
-            if (updateResult) {
-              console.log(updateResult);
-              res.json({ code: "ABT0000" });
-            } else {
-              res.json({ code: "ABT0001" });
-            }
-          }
-        });
-    } catch (e) {
-      console.log("error updating Menu", e);
-      res.json({ code: "ABT0001" });
-    }
-  },
+  async getFavoriteTruck(req,res)
+  {
+    try {  
+     const UserInfo = await User.find({ _id: req.body._id});  // send user ID
+
+     const Favorite  = UserInfo.favoriteTruck;
+     
+     let records = await Truck.find().where('_id').in(Favorite).exec();
+
+     
+     res.json({ records });
+   } catch (e) {
+     console.log("Error getting Favorite Supplier", e);
+     res.json({ code: "ABT0001" });
+   }
+  
+  }
+  
   
 };

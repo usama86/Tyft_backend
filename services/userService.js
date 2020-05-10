@@ -1,5 +1,6 @@
 import { User } from "../models/userModel";
 import { Truck } from "./../models/Truck";
+import { Menu } from './../models/Menu';
 const jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 export default {
@@ -32,7 +33,15 @@ export default {
             var hashedPassword = bcrypt.hashSync(data.password, 10);
             let userData;
             let truckData;
+            let  MenuData;
             if (data.userType === "Supplier") {
+
+              MenuData= {
+                Menu : data.Menu
+              }
+              const saveData = new Menu(MenuData);
+              var menData = await saveData.save();
+
               truckData = {
                 // truckLogo: req.files[0].path, //img
                 // coverPhoto: req.files[1].path, //img
@@ -49,7 +58,7 @@ export default {
                   twitter: data.twitter,
                 },
                 selectedServingCusines: data.selectedServingCusines,
-                Menu: data.Menu,
+                Menu: menData._id,
               };
               console.log(truckData);
               const TruckDatas = new Truck(truckData);

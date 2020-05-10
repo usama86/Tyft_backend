@@ -10,8 +10,8 @@ module.exports = (router) => {
 	  router.post('/getschedule', supplierService.getSchedule);
 	  router.post('/updateschedule', supplierService.updateSchedule);
 	  router.post('/getcustomerreview', supplierService.getCustomerReview);
-	  router.post('/getmenu', supplierService.getMenu);
-	  router.post('/updatemenu', supplierService.updateMenu);
+
+	  router.get('/getalltruck', supplierService.getAllTruck);
 	return router;
 };
 //CheckAuth  
