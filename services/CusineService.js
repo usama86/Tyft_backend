@@ -1,6 +1,6 @@
-import { Cusine } from "./../models/ServingCusine";
 
-export default {
+const Cusine = require('./../models/ServingCusine')
+module.exports =  {
   async getCusines(req, res) {
     try {
       const Cusine = await Cusine.find({});

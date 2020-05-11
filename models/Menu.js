@@ -7,4 +7,4 @@ const Schema = new mongoose.Schema({
     category: String
     }]
 })
-export const Menu = mongoose.model('Menu', Schema);
+module.exports = mongoose.model('Menu', Schema);

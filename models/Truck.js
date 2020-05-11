@@ -34,4 +34,4 @@ const Schema = new mongoose.Schema({
           //  user:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
-export const Truck = mongoose.model('Truck', Schema);
+module.exports = mongoose.model('Truck', Schema);

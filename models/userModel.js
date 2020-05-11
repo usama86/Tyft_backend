@@ -20,4 +20,4 @@ const Schema = new mongoose.Schema({
     favoriteTruck: Array
 });
 
-export const User = mongoose.model('User', Schema);
+module.exports = mongoose.model('User', Schema);

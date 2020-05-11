@@ -1,5 +1,4 @@
-import CusineService from '../services/CusineService'; 
-
+const CusineService = require('../services/CusineService');
 
 
 module.exports = (router) => {

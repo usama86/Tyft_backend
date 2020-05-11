@@ -1,8 +1,8 @@
-import { User } from "../models/userModel";
-import { Truck } from "./../models/Truck";
-const jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
-export default {
+
+const User = require('../models/userModel')
+const Truck = require('./../models/Truck');
+
+module.exports = {
   async getSupplier(req, res) {
     try {
        console.log(req.body.id);
