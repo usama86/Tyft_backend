@@ -1,5 +1,4 @@
-import supplierService from '../services/SupplierService'; 
-import CheckAuth from './../middlewae/checkAuth';
+const supplierService = require('../services/SupplierService');
 const multer = require('multer');
 
 

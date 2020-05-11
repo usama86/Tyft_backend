@@ -11,8 +11,8 @@ const dotenv = require('dotenv');
 dotenv.config();
 const rateLimit = require('express-rate-limit');
 // Database connection setup
-mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex:true });
-const db = mongoose.connection;
+mongoose.connect(process.env.MONGODB_URI,{ useNewUrlParser: true,useUnifiedTopology: true,useCreateIndex:true });
+const db = mongoose.connection; 
 db.on('error', function(err) {
 	console.error('connection error:', err);
 	process.exit(1); 

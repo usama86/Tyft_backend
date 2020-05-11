@@ -1,9 +1,9 @@
-import { User } from "../models/userModel";
-import { Truck } from "./../models/Truck";
-import { Menu } from './../models/Menu';
+const User = require('../models/userModel');
+const Truck = require('./../models/Menu')
+const Menu = require('./../models/Menu')
 const jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-export default {
+module.exports = {
   async getAllUser(req, res) {
     try {
       const Users = await User.find();
@@ -120,6 +120,7 @@ export default {
                   userId: user[0]._id,
                   userType: user[0].userType,
                   profileName: user[0].profileName,
+                  
                 },
                 "Bearer" //process.env.xyz
                 // {

@@ -1,8 +1,9 @@
-import { User } from "../models/userModel";
-import { Menu } from "./../models/Menu";
-const jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
-export default {
+// import { User } from "../models/userModel";
+const User =  require('../models/userModel');
+const Menu =  require('./../models/Menu')
+// import { Menu } from "./../models/Menu";
+
+module.exports = {
     async getSupplierMenu(req, res) {   //return the Menu of specific user, need to send Menu id
         try {
           const MenuInfo = await Menu.find({ _id: req.body._id });

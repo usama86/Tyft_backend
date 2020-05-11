@@ -3,4 +3,4 @@ const Schema = new mongoose.Schema({
     CusineName:Array
 });
 
-export const ServingCusine = mongoose.model('ServingCusine', Schema);
+module.exports = mongoose.model('ServingCusine', Schema);

@@ -1,8 +1,8 @@
-import { User } from "../models/userModel";
-import { Truck } from "./../models/Truck";
-const jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
-export default {
+
+const User = require('../models/userModel')
+const Truck = require('./../models/Truck');
+
+module.exports = {
   async getSupplier(req, res) {
     try {
        console.log(req.body.id);
@@ -100,20 +100,21 @@ export default {
   async getFavoriteTruck(req,res)
   {
     try {  
+     
      const UserInfo = await User.find({ _id: req.body._id});  // send user ID
 
      const Favorite  = UserInfo.favoriteTruck;
      
-     let records = await Truck.find().where('_id').in(Favorite).exec();
-
+     let records = await Truck.find().where('_id').in(Favorite).exec();  
      
      res.json({ records });
+
    } catch (e) {
-     console.log("Error getting Favorite Supplier", e);
-     res.json({ code: "ABT0001" });
+     
+      console.log("Error getting Favorite Supplier", e);
+      
+      res.json({ code: "ABT0001" });
+
    }
-  
   }
-  
-  
 };
