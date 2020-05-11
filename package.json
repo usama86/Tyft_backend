@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node index.js",
-    "dev":"nodemon index.js --exec babel-node"
+    "start": "npm run build && node ./build/index.js",
+    "dev":"nodemon index.js --exec babel-node",
+    "build": "npm run clean && npm run build-babel"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
