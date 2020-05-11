@@ -3,7 +3,7 @@ import { Menu } from "./../models/Menu";
 const jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 export default {
-    async getSupplierMenu(req, res) {   //return the schedule of specific user, need to send Menu id
+    async getSupplierMenu(req, res) {   //return the Menu of specific user, need to send Menu id
         try {
           const MenuInfo = await Menu.find({ _id: req.body._id });
           const MenuData = MenuInfo.Menu;
@@ -41,7 +41,7 @@ export default {
       },
       async getAllMenu(req, res) {   //return the schedule of specific user, need to send Menu id
         try {
-          const MenuInfo = await Menu.find({});
+          const MenuInfo = await Menu.find();
           res.json({ code:"ABT0000", MenuInfo });
         } catch (e) {
           console.log("Error getting Menu", e);
