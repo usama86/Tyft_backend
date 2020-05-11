@@ -6,7 +6,9 @@
   "scripts": {
     "start": "npm run build && node ./build/index.js",
     "dev":"nodemon index.js --exec babel-node",
-    "build": "npm run clean && npm run build-babel"
+    "build": "npm run clean && npm run build-babel",
+    "clean": "rm -rf build && mkdir build",
+    "build-babel": "babel -d ./build ./src -s"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
