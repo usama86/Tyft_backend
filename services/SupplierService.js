@@ -25,7 +25,7 @@ export default {
           } else {
             let updateResult = await Truck.update(
               { _id: reqBody._id },
-              { $set: { approved: reqBody.status } }
+              { $set: { status: reqBody.status } }
             );
             if (updateResult) {
               console.log(updateResult);
