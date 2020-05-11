@@ -16,7 +16,8 @@ const Schema = new mongoose.Schema({
     isAdmin: {type: Boolean, default: false},
     truck:{type: mongoose.Schema.Types.ObjectId, ref: 'Truck'},
     Language: String,
-    selectedServingCusines: Array
+    selectedServingCusines: Array,
+    favoriteTruck: Array
 });
 
 export const User = mongoose.model('User', Schema);

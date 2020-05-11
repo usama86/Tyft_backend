@@ -1,5 +1,6 @@
 import { User } from "../models/userModel";
 import { Truck } from "./../models/Truck";
+import { Menu } from './../models/Menu';
 const jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 export default {
@@ -32,7 +33,15 @@ export default {
             var hashedPassword = bcrypt.hashSync(data.password, 10);
             let userData;
             let truckData;
+            let  MenuData;
             if (data.userType === "Supplier") {
+
+              MenuData= {
+                Menu : data.Menu
+              }
+              const saveData = new Menu(MenuData);
+              var menData = await saveData.save();
+
               truckData = {
                 // truckLogo: req.files[0].path, //img
                 // coverPhoto: req.files[1].path, //img
@@ -49,7 +58,7 @@ export default {
                   twitter: data.twitter,
                 },
                 selectedServingCusines: data.selectedServingCusines,
-                Menu: data.Menu,
+                Menu: menData._id,
               };
               console.log(truckData);
               const TruckDatas = new Truck(truckData);
@@ -129,5 +138,42 @@ export default {
       res.json({ code: "ABT0001" });
     }
   },
+  async updateUser(req, res) {
+    try {
+      let data = req.body;
+      var hashedPassword = bcrypt.hashSync(data.password, 10);
+      User.find({ _id: reqBody._id })
+        .exec()
+        .then(async (truck) => {
+          if (truck.length < 1) {
+            res.json({ code: "Truck ID doesn't exist" });
+          } else {
+            let updateResult = await User.update(
+              { _id: reqBody._id },
+              { $set: { 
+                email: data.email,
+                password: hashedPassword,
+                profileName: data.profileName,
+                // profilePhoto: req.files[0].path,
+                phoneNumber: data.phoneNumber,
+                userType: data.userType,
+                Language: data.Language,
+              
+              } }
+            );
+            if (updateResult) {
+              console.log(updateResult);
+              res.json({ code: "ABT0000" });
+            } else {
+              res.json({ code: "ABT0001" });
+            }
+          }
+        });
+    } catch (e) {
+      console.log("error updating User", e);
+      res.json({ code: "ABT0001" });
+    }
+  },
+
   
 };
