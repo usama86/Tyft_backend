@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "node index.js",
+    "start": "node  --experimental-modules index.js",
     "dev":"nodemon index.js --exec babel-node"
   },
   "dependencies": {
