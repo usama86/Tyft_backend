@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = new mongoose.Schema({
             truckLogo:String,//img
+            coverPhoto:String,
             truckName:String,
             businessDesc:String,
             truckContact:String,

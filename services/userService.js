@@ -43,8 +43,8 @@ module.exports = {
               var menData = await saveData.save();
 
               truckData = {
-                // truckLogo: req.files[0].path, //img
-                // coverPhoto: req.files[1].path, //img
+                truckLogo: data.truckLogo, //string
+                coverPhoto: data.coverPhoto, //string
                 truckName: data.truckName,
                 businessDesc: data.businessDesc,
                 truckContact: data.truckContact,

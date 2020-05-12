@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = new mongoose.Schema({
-    profileName : String,
+
+  profileName : String,
     profilePhoto: String,
     email: {
         type: String, 
@@ -18,6 +19,7 @@ const Schema = new mongoose.Schema({
     Language: String,
     selectedServingCusines: Array,
     favoriteTruck: Array
-});
+
+  });
 
 module.exports = mongoose.model('User', Schema);
