@@ -8,7 +8,7 @@ module.exports = {
        console.log(req.body.id);
       
       const Supplier = await User.find({ _id: req.body.id });
-      const TruckInfo = await Truck.find({ _id: Supplier[0].truck });
+      const TruckInfo = await Truck.find({ _id: Supplier[0].TruckID });
       res.json({ Supplier, TruckInfo });
     } catch (e) {
       console.log("Error getting Supplier", e);
@@ -44,8 +44,8 @@ module.exports = {
   async getSchedule(req, res) {   //return the schedule of specific user, need to send truck id
     try {
       const TruckInfo = await Truck.find({ _id: req.body._id });
-      const ScheduleData = TruckInfo.schedule;
-      res.json({ code:"ABT0000", ScheduleData });
+      const ScheduleData = TruckInfo;
+      res.json({ScheduleData});
     } catch (e) {
       console.log("Error getting Schedule", e);
       res.json({ code: "ABT0001" });

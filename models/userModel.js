@@ -15,7 +15,7 @@ const Schema = new mongoose.Schema({
     updated_at: Date,
     userType:String,
     isAdmin: {type: Boolean, default: false},
-    truck:{type: mongoose.Schema.Types.ObjectId, ref: 'Truck'},
+    TruckID:{type: mongoose.Schema.Types.ObjectId, ref: 'Truck'},
     Language: String,
     selectedServingCusines: Array,
     favoriteTruck: Array

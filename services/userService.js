@@ -58,7 +58,7 @@ module.exports = {
                   twitter: data.twitter,
                 },
                 selectedServingCusines: data.selectedServingCusines,
-                Menu: menData._id,
+                MenuID: menData._id,
               };
               console.log(truckData);
               const TruckDatas = new Truck(truckData);
@@ -70,7 +70,7 @@ module.exports = {
                 // profilePhoto: req.files[2].path, //img
                 phoneNumber: data.phoneNumber,
                 userType: data.userType,
-                truck: Rdata._id,
+                TruckID: Rdata._id,
               };
               console.log(userData);
               const userDatas = new User(userData);
