@@ -11,6 +11,7 @@ module.exports = (router) => {
 	  router.post('/getcustomerreview', supplierService.getCustomerReview);
 
 	  router.get('/getalltruck', supplierService.getAllTruck);
+	  router.get('/getfavoritetruck', supplierService.getFavoriteTruck);
 	return router;
 };
 //CheckAuth  
