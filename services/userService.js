@@ -16,20 +16,28 @@ module.exports = {
   async signup(req, res) {
     try {
       //   console.log(req.files[0].path);
-       console.log(req.body.email)
-      User.find({ email: req.body.email })
+      //  console.log(req.body.email)
+      //  c/onsole.log(req.body)
+
+
+      let data = req.body
+      //  console.log(data)
+      User.find({ email: data.email })
         .exec()
         .then(async (user) => {
+
           if (user.length >= 1) {
+          //  console.log(user);
             //   console.log(user.length);
             // console.log(user.email);
             res.json({ code: "Email Address already exist" });
           } else {
-             console.log(req.files)
+            //  console.log(req.files)
             // console.log(req.files[0].path)
             // console.log(req.files[1].path)
             // console.log(req.files[2].path)
-            let data = req.body;
+          
+            // console.log(data);
             var hashedPassword = bcrypt.hashSync(data.password, 10);
             let userData;
             let truckData;
@@ -41,7 +49,6 @@ module.exports = {
               }
               const saveData = new Menu(MenuData);
               var menData = await saveData.save();
-
               truckData = {
                 truckLogo: data.truckLogo, //string
                 coverPhoto: data.coverPhoto, //string
@@ -78,6 +85,7 @@ module.exports = {
 
               res.json({ code: "ABT0000" });
             } else if (data.userType === "Customer") {
+              console.log('USER',data)
               userData = {
                 email: data.email,
                 password: hashedPassword,

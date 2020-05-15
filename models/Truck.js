@@ -20,14 +20,7 @@ const Schema = new mongoose.Schema({
                 instagram:String,
                 twitter:String
             },
-            selectedServingCusines:Object,
-            // Menu:[{
-            //     id: Number,
-            //     name: String,
-            //     price: Number,
-            //     description: String,
-            //     category: String,
-            // }],
+            selectedServingCusines:Array,
             MenuID: {type: mongoose.Schema.Types.ObjectId, ref: 'Menu'},
             status:{type:String, default: "Close"},
             rating:{type:Number, default: 0},

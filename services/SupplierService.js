@@ -102,17 +102,11 @@ module.exports = {
     try {  
      
      const UserInfo = await User.find({ _id: req.body._id});  // send user ID
-
      const Favorite  = UserInfo.favoriteTruck;
-     
      let records = await Truck.find().where('_id').in(Favorite).exec();  
-     
      res.json({ records });
-
    } catch (e) {
-     
       console.log("Error getting Favorite Supplier", e);
-      
       res.json({ code: "ABT0001" });
 
    }
