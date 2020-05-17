@@ -2,8 +2,7 @@ const supplierService = require('../services/SupplierService');
 const multer = require('multer');
 
 
-module.exports = (router) => {
-
+module.exports = (router) => { 
 	  router.post('/getsupplier', supplierService.getSupplier);
 	  router.post('/updatestatus', supplierService.updateStatus);
 	  router.post('/getschedule', supplierService.getSchedule);
