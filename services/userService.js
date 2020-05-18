@@ -25,9 +25,9 @@ module.exports = {
       User.find({ email: data.email })
         .exec()
         .then(async (user) => {
-
+                console.log(req.body)
           if (user.length >= 1) {
-          //  console.log(user);
+            console.log(user);
             //   console.log(user.length);
             // console.log(user.email);
             res.json({ code: "Email Address already exist" });
@@ -102,7 +102,8 @@ module.exports = {
             } else {
             }
           }
-        });
+        })
+        
       // let reqBody = req.body;
     } catch (e) {
       res.json({ code: "ABT0001" });
