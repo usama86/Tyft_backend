@@ -19,8 +19,13 @@ const Schema = new mongoose.Schema({
                 facebook:String,
                 instagram:String,
                 twitter:String
-            },
-            selectedServingCusines:Array,
+            }, 
+            selectedServingCusines: [ 
+                {
+                  cusineName:String,
+                  checked:{type:Boolean, default:false}
+                },
+            ],
             MenuID: {type: mongoose.Schema.Types.ObjectId, ref: 'Menu'},
             status:{type:String, default: "Close"},
             rating:{type:Number, default: 0},

@@ -4,10 +4,11 @@ const Truck = require('./../models/Truck');
 
 module.exports = {
   async getSupplier(req, res) {
-    try {
+    try { 
        console.log(req.body.id);
       
       const Supplier = await User.find({ _id: req.body.id });
+      console.log(Supplier[0].TruckID);
       const TruckInfo = await Truck.find({ _id: Supplier[0].TruckID });
       res.json({ Supplier, TruckInfo });
     } catch (e) {
@@ -90,7 +91,7 @@ module.exports = {
   async getAllTruck(req,res)
   {
     try{
-      const TruckInfo = await Truck.find();
+      const TruckInfo = await Truck.find({});
       res.json({  TruckInfo });
     }catch (e) {
       console.log("Error retriving Truck's");
