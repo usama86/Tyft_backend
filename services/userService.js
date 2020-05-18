@@ -1,5 +1,5 @@
 const User = require('../models/userModel');
-const Truck = require('./../models/Menu')
+const Truck = require('./../models/Truck')
 const Menu = require('./../models/Menu')
 const jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -27,9 +27,9 @@ module.exports = {
         .then(async (user) => {
 
           if (user.length >= 1) {
-          //  console.log(user);
-            //   console.log(user.length);
-            // console.log(user.email);
+          // //  console.log(user);
+          //   //   console.log(user.length);
+          //   // console.log(user.email);
             res.json({ code: "Email Address already exist" });
           } else {
             //  console.log(req.files)
@@ -49,9 +49,10 @@ module.exports = {
               }
               const saveData = new Menu(MenuData);
               var menData = await saveData.save();
+
               truckData = {
-                truckLogo: data.truckLogo, //string
-                coverPhoto: data.coverPhoto, //string
+                // truckLogo: data.truckLogo, //string
+                // coverPhoto: data.coverPhoto, //string
                 truckName: data.truckName,
                 businessDesc: data.businessDesc,
                 truckContact: data.truckContact,
@@ -68,8 +69,11 @@ module.exports = {
                 MenuID: menData._id,
               };
               console.log(truckData);
+              
               const TruckDatas = new Truck(truckData);
               var Rdata = await TruckDatas.save();
+              console.log(Rdata);
+              console.log(Rdata._id);
               userData = {
                 email: data.email,
                 password: hashedPassword,
@@ -79,7 +83,7 @@ module.exports = {
                 userType: data.userType,
                 TruckID: Rdata._id,
               };
-              console.log(userData);
+          //    console.log(userData);
               const userDatas = new User(userData);
               await userDatas.save();
 
@@ -105,7 +109,8 @@ module.exports = {
         });
       // let reqBody = req.body;
     } catch (e) {
-      res.json({ code: "ABT0001" });
+      console.log(e);
+      res.json({ code: "ABT0001"});
     }
   },
 

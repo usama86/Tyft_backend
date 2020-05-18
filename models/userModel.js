@@ -6,7 +6,7 @@ const Schema = new mongoose.Schema({
     email: {
         type: String, 
       //  required:[true,"Email can not be empty"]
-        unique:true,
+        // unique:true,
        // match: [/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/, res.json({ code: 'Email Address already exist' })]
     },
     password: {type: String, required:true},
@@ -17,7 +17,6 @@ const Schema = new mongoose.Schema({
     isAdmin: {type: Boolean, default: false},
     TruckID:{type: mongoose.Schema.Types.ObjectId, ref: 'Truck'},
     Language: String,
-    selectedServingCusines: Array,
     favoriteTruck: Array,
     cusine: {type: mongoose.Schema.Types.ObjectId, ref: 'ServingCusine'}
   });

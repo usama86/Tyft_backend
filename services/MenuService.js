@@ -17,8 +17,8 @@ module.exports = {
       async updateMenu(req, res) {// _id of Menu and schedule object to update
         try {
           let reqBody = req.body;
-          console.log( reqBody._id);
-          console.log( reqBody.Menu)
+        //  console.log( reqBody._id);
+       //   console.log( reqBody.Menu)
           Menu.find({ _id: reqBody._id })
             .exec()
             .then(async (Menu) => {
@@ -26,11 +26,12 @@ module.exports = {
                 res.json({ code: "Menu ID doesn't exist" });
               } else {
                 let updateResult;
-                Menu.updateOne({_id: reqBody._id}, {$set: {Menu:  reqBody.Menu}}, function (err, raw) {
+                console.log(Menu[0].Menu);
+                Menu[0].updateOne({_id: reqBody._id}, {$set: {Menu:  reqBody.Menu}}, function (err, raw) {
                   if(err)
                   {
                     console.log('err  is ',err)
-                    res.send("ERROR")
+                    res.send("ERROR") 
                   }
                   updateResult=raw;  
                    
