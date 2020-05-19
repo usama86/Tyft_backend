@@ -159,14 +159,14 @@ module.exports = {
     try {
       let data = req.body;
       var hashedPassword = bcrypt.hashSync(data.password, 10);
-      User.find({ _id: reqBody._id })
+      User.find({ _id: data._id })
         .exec()
         .then(async (truck) => {
           if (truck.length < 1) {
             res.json({ code: "Truck ID doesn't exist" });
           } else {
             let updateResult = await User.update(
-              { _id: reqBody._id },
+              { _id: data._id },
               { $set: { 
                 email: data.email,
                 password: hashedPassword,
