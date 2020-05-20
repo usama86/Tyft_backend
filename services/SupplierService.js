@@ -98,6 +98,16 @@ module.exports = {
       res.json({ code: "ABT0001" });
     }
   },
+  async getAllLocation(req,res)
+  {
+    try{
+      const TruckInfo = await Truck.find({}, 'truckName longitude latitude schedule');
+      res.json({  TruckInfo });
+    }catch (e) {
+      console.log("Error retriving Truck's Location",e);
+      res.json({ code: "ABT0001" });
+    }
+  },
   async getFavoriteTruck(req,res)
   {
     try {  
