@@ -123,10 +123,8 @@ module.exports = {
       let Favorite = [];
       console.log(!UserInfo.favoriteTruck);
 			if (UserInfo[0].favoriteTruck) Favorite = [ ...UserInfo[0].favoriteTruck ];
-
       console.log(Favorite);
       Favorite.push(reqBody.TruckID);
-
       console.log(Favorite);
 			let updateResult = await User.update({ _id: reqBody.UserID }, { $set: { favoriteTruck: Favorite } });
 			if (updateResult) {
