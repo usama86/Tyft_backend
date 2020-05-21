@@ -8,7 +8,9 @@ module.exports = (router) => {
 	  router.post('/getschedule', supplierService.getSchedule);
 	  router.post('/updateschedule', supplierService.updateSchedule);
 	  router.post('/getcustomerreview', supplierService.getCustomerReview);
-
+	  router.post('/setfavorite', supplierService.setFavorite);
+	  router.post('/setlocation', supplierService.setLocation);
+	  
 	  router.get('/getalltruck', supplierService.getAllTruck);
 	  router.get('/getfavoritetruck', supplierService.getFavoriteTruck);
 	  router.get('/getalllocation', supplierService.getAllLocation);
