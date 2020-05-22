@@ -82,8 +82,10 @@ module.exports = {
   async getCustomerReview(req, res) {
     //return the schedule of specific user, need to send truck id
     try {
-      const TruckInfo = await Truck.find({ _id: req.body._id });
-      const Review = TruckInfo.customerReview;
+	  const TruckInfo = await Truck.find({ _id: req.body._id });
+	  
+	  const Review = TruckInfo[0].customerReview;
+	  console.log('here in rev',Review)
       res.json({Review });
     } catch (e) {
       console.log("Error getting Schedule", e);
