@@ -86,6 +86,7 @@ module.exports = {
 	async getAllTruck(req, res) {
 		try {
 			const TruckInfo = await Truck.find({});
+			console.log(TruckInfo);
 			res.json({ TruckInfo });
 		} catch (e) {
 			console.log("Error retriving Truck's");
@@ -100,42 +101,45 @@ module.exports = {
 			console.log("Error retriving Truck's Location", e);
 			res.json({ code: 'ABT0001' });
 		}
-  },
-  async setLocation(req, res) {   // send TruckID longitude latitude
+	},
+	async setLocation(req, res) {
+		// send TruckID longitude latitude
 		try {
-      let updateResult = await Truck.update({ _id: req.body.TruckID }, { $set: { longitude:req.body.longitude,latitude:req.body.latitude } });
+			let updateResult = await Truck.update(
+				{ _id: req.body.TruckID },
+				{ $set: { longitude: req.body.longitude, latitude: req.body.latitude } }
+			);
 			if (updateResult) {
 				console.log(updateResult);
 				res.json({ code: 'ABT0000' });
 			} else {
 				res.json({ code: 'ABT0001' });
 			}
-
 		} catch (e) {
 			console.log("Error retriving Truck's Location", e);
 			res.json({ code: 'ABT0001' });
 		}
 	},
-	async setFavorite(req, res) {   // send UserID and TruckID
+	async setFavorite(req, res) {
+		// send UserID and TruckID
 		try {
 			const UserInfo = await User.find({ _id: req.body.UserID }); // send user ID
 			const reqBody = req.body;
-      let Favorite = [];
-      console.log(!UserInfo.favoriteTruck);
+			let Favorite = [];
 			if (UserInfo[0].favoriteTruck) Favorite = [ ...UserInfo[0].favoriteTruck ];
-      console.log(Favorite);
-      Favorite.push(reqBody.TruckID);
-      console.log(Favorite);
-			let updateResult = await User.update({ _id: reqBody.UserID }, { $set: { favoriteTruck: Favorite } });
+			let updateResult;
+			if (reqBody.selected === true) {
+				Favorite.push(reqBody.TruckID);
+				updateResult = await User.update({ _id: reqBody.UserID }, { $set: { favoriteTruck: Favorite } });
+			} else {
+				let filteredData = Favorite.filter((result) => result !== reqBody.TruckID);
+				updateResult = await User.update({ _id: reqBody.UserID }, { $set: { favoriteTruck: filteredData } });
+			}
 			if (updateResult) {
-				console.log(updateResult);
 				res.json({ code: 'ABT0000' });
 			} else {
 				res.json({ code: 'ABT0001' });
 			}
-
-			// let records = await Truck.find().where('_id').in(Favorite).exec();
-			// res.json({ records });
 		} catch (e) {
 			console.log('Error getting Favorite Supplier', e);
 			res.json({ code: 'ABT0001' });
@@ -144,12 +148,70 @@ module.exports = {
 	async getFavoriteTruck(req, res) {
 		try {
 			const UserInfo = await User.find({ _id: req.body._id }); // send user ID
-			const Favorite = UserInfo.favoriteTruck;
+			const Favorite = UserInfo[0].favoriteTruck;
 			let records = await Truck.find().where('_id').in(Favorite).exec();
 			res.json({ records });
 		} catch (e) {
 			console.log('Error getting Favorite Supplier', e);
 			res.json({ code: 'ABT0001' });
 		}
-	}
+  },
+  async getFavorite(req, res)
+  {
+    try {
+			const UserInfo = await User.find({ _id: req.body._id }); // send user ID
+			const Favorite = UserInfo[0].favoriteTruck;
+      let records = await Truck.find().where('_id').in(Favorite).exec();
+      console.log(records.length)
+      if(records.length>0)
+        res.json({ code: 'ABT0000' });
+      else 
+      res.json({ code: 'ABT0001' });
+			
+		} catch (e) {
+			console.log('Error getting Favorite Supplier', e);
+			res.json({ code: 'ABT0001' });
+		}
+  },
+  async addReview(req,res)
+  {
+    // console.log(review);
+    // console.log(names);
+    // console.log(rating)
+    // console.log(route.params.ID)
+    // console.log(userID)
+    try {
+      let reqBody = req.body;
+    //  console.log( reqBody._id);
+   //   console.log( reqBody.Menu)
+      Truck.find({ _id: reqBody._id })
+        .exec()
+        .then(async (Truck) => {
+          if (Truck.length < 1) {
+            res.json({ code: "Truck ID doesn't exist" });
+          } else {
+            let updateResult;
+            console.log(Truck[0].customerReview);
+            Truck[0].updateOne({_id: reqBody._id}, {$set: {customerReview:  reqBody.customerReview}}, function (err, raw) {
+              if(err)
+              {
+                console.log('err  is ',err)
+                res.send("ERROR") 
+              }
+              updateResult=raw;  
+               
+            })
+            if (updateResult) {
+              console.log(updateResult);
+              res.json({ code: "ABT0000" });
+            } else {
+              res.json({ code: "ABT0001" });
+            }
+          }
+        });
+    } catch (e) {
+      console.log("error updating Menu", e);
+      res.json({ code: "ABT0001" });
+    }
+  }
 };

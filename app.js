@@ -7,7 +7,9 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const config = require('config');
 const dotenv = require('dotenv');
-
+var http = require('http');
+var fs = require('fs');
+const router = express.Router();
 dotenv.config();
 const rateLimit = require('express-rate-limit');
 // Database connection setup
@@ -29,6 +31,15 @@ app.use(cors());
 app.options('*', cors());
 
 
+
+//html page
+router.get('/',function(req,res){
+  res.sendFile(path.join(__dirname+'/adminpanel/index.html'));
+  //__dirname : It will resolve to your project folder.
+});
+
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -39,6 +50,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'uploads')));
 
+
 // This will limit the api requests to 100 per minute per IP address
 const apiLimiter = rateLimit({
 	windowMs: 60 * 1000, // 1 minute
@@ -48,11 +60,16 @@ app.use('/api/', apiLimiter);
 
 
 //let indexRouter = require('./routes/index');
+
 let usersRouter = require('./routes/users')(express.Router());
 let SupplierRouter  = require('./routes/Supplier')(express.Router());
 let CusineRouter  = require('./routes/SevingCusine')(express.Router());
 let MenuRouter = require('./routes/Menu')(express.Router());
 //app.use('/', indexRouter);
+
+//html
+app.use('/', router);
+
 app.use('/api/users', usersRouter);
 app.use('/api/supplier', SupplierRouter);
 app.use('/api/servingcusine',CusineRouter);

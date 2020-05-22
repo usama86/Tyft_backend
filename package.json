@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node  --experimental-modules index.js",
-    "dev":"nodemon index.js --exec babel-node"
+    "dev": "nodemon index.js --exec babel-node"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
@@ -16,6 +16,7 @@
     "esm": "^3.2.25",
     "express": "~4.16.1",
     "express-rate-limit": "^5.0.0",
+    "fs": "0.0.1-security",
     "http-errors": "~1.6.3",
     "jade": "~1.11.0",
     "jsonwebtoken": "^8.5.1",

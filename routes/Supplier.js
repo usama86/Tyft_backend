@@ -10,12 +10,13 @@ module.exports = (router) => {
 	  router.post('/getcustomerreview', supplierService.getCustomerReview);
 	  router.post('/setfavorite', supplierService.setFavorite);
 	  router.post('/setlocation', supplierService.setLocation);
+	  router.post('/getfavoritetruck', supplierService.getFavoriteTruck);
+	  router.post('/getfavorite', supplierService.getFavorite);
+	  router.post('/addreview', supplierService.addReview);
 	  
 	  router.get('/getalltruck', supplierService.getAllTruck);
-	  router.get('/getfavoritetruck', supplierService.getFavoriteTruck);
 	  router.get('/getalllocation', supplierService.getAllLocation);
 
-	  
 	return router;
 };
 //CheckAuth  

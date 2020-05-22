@@ -117,12 +117,18 @@ module.exports = {
 
   async login(req, res) {
     try {
+      console.log(req.body.email);
+      console.log(req.body.password)
+      
       User.find({ email: req.body.email })
         .exec()
         .then(async (user) => {
           if (user.length < 1) {
-            res.json({ code: "Email Address doesn't already exist" });
+            console.log("HI")
+            res.json({ code: "Email Address already exist" });
           }
+          console.log(user.length);
+          console.log(user[0])
           bcrypt.compare(req.body.password, user[0].password, (err, result) => {
             if (err) {
               res.json({ message: "password failed" });
@@ -132,6 +138,7 @@ module.exports = {
                 {
                   email: user[0].email,
                   userId: user[0]._id,
+                  userName: user[0].profileName,
                   userType: user[0].userType,
                   profileName: user[0].profileName,
                   phoneNumber:user[0].phoneNumber
