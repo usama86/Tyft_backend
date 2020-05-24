@@ -51,8 +51,8 @@ module.exports = {
               var menData = await saveData.save();
 
               truckData = {
-                // truckLogo: data.truckLogo, //string
-                // coverPhoto: data.coverPhoto, //string
+                truckLogo: data.truckLogo, //string
+                coverPhoto: data.coverPhoto, //string
                 truckName: data.truckName,
                 businessDesc: data.businessDesc,
                 truckContact: data.truckContact,
@@ -180,7 +180,7 @@ module.exports = {
                 profileName: data.profileName,
                 // profilePhoto: req.files[0].path,
                 phoneNumber: data.phoneNumber,
-                userType: data.userType,
+                // userType: data.userType,
                 Language: data.Language,
               
               } }

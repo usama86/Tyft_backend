@@ -33,11 +33,14 @@ app.options('*', cors());
 
 
 //html page
-router.get('/',function(req,res){
+router.get('/login',function(req,res){
   res.sendFile(path.join(__dirname+'/adminpanel/index.html'));
   //__dirname : It will resolve to your project folder.
 });
-
+router.get('/table',function(req,res){
+  res.sendFile(path.join(__dirname+'/adminpanel/table.html'));
+  //__dirname : It will resolve to your project folder.
+});
 
 
 // view engine setup
