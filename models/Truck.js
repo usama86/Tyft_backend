@@ -28,7 +28,7 @@ const Schema = new mongoose.Schema({
             ],
             MenuID: {type: mongoose.Schema.Types.ObjectId, ref: 'Menu'},
             status:{type:String, default: "Close"},
-            rating:{type:Number, default: 0},
+            // rating:{type:Number, default: 0},
             customerReview:Array,
             longitude:String,
             latitude:String
