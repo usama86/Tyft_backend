@@ -13,6 +13,15 @@ module.exports = {
       res.json({ code: "ABT0001" });
     }
   },
+  async getUser(req, res) {
+    try {
+      const Users = await User.find({email:req.body.email});
+      res.send(Users);
+    } catch (e) {
+      console.log("error getting forum posts", e);
+      res.json({ code: "ABT0001" });
+    }
+  },
   async signup(req, res) {
     try {
       //   console.log(req.files[0].path);
@@ -90,6 +99,11 @@ module.exports = {
               res.json({ code: "ABT0000" });
             } else if (data.userType === "Customer") {
               console.log('USER',data)
+              let social;
+              if(!data.social)
+                  social = false;
+              else
+                  social = data.social;  
               userData = {
                 email: data.email,
                 password: hashedPassword,
@@ -98,6 +112,7 @@ module.exports = {
                 phoneNumber: data.phoneNumber,
                 userType: data.userType,
                 Language: data.Language,
+                social:social
               };
               console.log(userData);
               const userDatas = new User(userData);
@@ -198,6 +213,7 @@ module.exports = {
       res.json({ code: "ABT0001" });
     }
   },
+  
 
   
 };

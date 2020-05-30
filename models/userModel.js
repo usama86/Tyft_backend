@@ -18,7 +18,8 @@ const Schema = new mongoose.Schema({
     TruckID:{type: mongoose.Schema.Types.ObjectId, ref: 'Truck'},
     Language: String,
     favoriteTruck: Array,
-    cusine: {type: mongoose.Schema.Types.ObjectId, ref: 'ServingCusine'}
+    cusine: {type: mongoose.Schema.Types.ObjectId, ref: 'ServingCusine'},
+    social:{type:Boolean, default:false}
   });
 
 module.exports = mongoose.model('User', Schema);

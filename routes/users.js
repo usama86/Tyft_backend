@@ -36,6 +36,9 @@ module.exports = (router) => {
 	  router.post('/signup',upload.array('Image'), userService.signup);
 	  router.post('/login', userService.login);
 	  router.post('/updateuser',upload.array('Image'), userService.updateUser)
+	  router.post('/getuser', userService.getUser)
+
+	  
 	return router;
 };
 //CheckAuth
