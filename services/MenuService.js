@@ -2,6 +2,7 @@
 const User =  require('../models/userModel');
 const Menu =  require('./../models/Menu')
 // import { Menu } from "./../models/Menu";
+var ObjectID = require('mongodb').ObjectID;
 
 module.exports = {
     async getSupplierMenu(req, res) {   //return the Menu of specific user, need to send Menu id
@@ -17,8 +18,8 @@ module.exports = {
       async updateMenu(req, res) {// _id of Menu and schedule object to update
         try {
           let reqBody = req.body;
-        //  console.log( reqBody._id);
-       //   console.log( reqBody.Menu)
+          console.log( reqBody._id);
+          // console.log( reqBody.Menu)
           Menu.find({ _id: reqBody._id })
             .exec()
             .then(async (Menu) => {
@@ -26,18 +27,27 @@ module.exports = {
                 res.json({ code: "Menu ID doesn't exist" });
               } else {
                 let updateResult;
-                console.log(Menu[0].Menu);
-                Menu[0].updateOne({_id: reqBody._id}, {$set: {Menu:  reqBody.Menu}}, function (err, raw) {
-                  if(err)
-                  {
-                    console.log('err  is ',err)
-                    res.send("ERROR") 
-                  }
-                  updateResult=raw;  
-                   
-                })
-                if (updateResult) {
-                  console.log(updateResult);
+                 console.log(Menu[0].Menu);
+                 updateResult = await Menu[0].updateOne({_id: ObjectID(reqBody._id)}, {$set: {Menu:  reqBody.Menu}});
+                let  MenuData= {
+                  Menu : updateResult
+                }
+                 const saveData = new Menu(MenuData);
+                 let  updateResults = await saveData.save();
+                  
+                 console.log(updateResults)
+                  
+                  // , function (err, raw) {
+                //   if(err)
+                //   {
+                //     console.log('err  is ',err)
+                //     res.send("ERROR") 
+                //   }
+                //   updateResult=raw;  
+                //   console.log(updateResult);
+                // })
+                if (updateResults) {
+                  console.log(updateResults);
                   res.json({ code: "ABT0000" });
                 } else {
                   res.json({ code: "ABT0001" });
