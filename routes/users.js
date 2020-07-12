@@ -37,6 +37,7 @@ module.exports = (router) => {
 	  router.post('/login', userService.login);
 	  router.post('/updateuser',upload.array('Image'), userService.updateUser)
 	  router.post('/getuser', userService.getUser)
+	  
 
 	  
 	return router;

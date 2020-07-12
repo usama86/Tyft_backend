@@ -22,19 +22,21 @@ module.exports = {
           // console.log( reqBody.Menu)
           Menu.find({ _id: reqBody._id })
             .exec()
-            .then(async (Menu) => {
-              if (Menu.length < 1) {
+            .then(async (Menus) => {
+              if (Menus.length < 1) {
                 res.json({ code: "Menu ID doesn't exist" });
               } else {
-                let updateResult;
-                 console.log(Menu[0].Menu);
-                 updateResult = await Menu[0].updateOne({_id: ObjectID(reqBody._id)}, {$set: {Menu:  reqBody.Menu}});
-                let  MenuData= {
-                  Menu : updateResult
-                }
-                 const saveData = new Menu(MenuData);
-                 let  updateResults = await saveData.save();
-                  
+                let updateResults;
+                console.log(" I am menu")
+                 console.log(Menus);
+                console.log(reqBody.Menu);
+                 updateResults = await Menu.updateOne({_id: ObjectID(reqBody._id)}, {$set: {Menu:  reqBody.Menu}});
+                // let  MenuData= {
+                //   Menu : updateResult
+                // }
+                // //  const saveData = new Menu(MenuData);
+                //  let  updateResults = await saveData.save();
+                  console.log('updated')                  
                  console.log(updateResults)
                   
                   // , function (err, raw) {
