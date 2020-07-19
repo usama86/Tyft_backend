@@ -18,7 +18,7 @@ module.exports = (router) => {
 	  router.get('/getalllocation', supplierService.getAllLocation);
 	  router.post('/updatetrucklogo', supplierService.updateTruckLogo)
 	  router.post('/updatecoverimage', supplierService.updateCoverImage)
-	  router.post('/updateprofileimage', supplierService.updateProfilePhotos)
+	
 	return router;
 }; 
 //CheckAuth   

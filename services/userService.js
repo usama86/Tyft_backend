@@ -24,29 +24,15 @@ module.exports = {
   },
   async signup(req, res) {
     try {
-      //   console.log(req.files[0].path);
-      //  console.log(req.body.email)
-      //  c/onsole.log(req.body)
-
-
       let data = req.body
-      //  console.log(data)
       User.find({ email: data.email })
         .exec()
         .then(async (user) => {
                 console.log(req.body)
           if (user.length >= 1) {
             console.log(user);
-            //   console.log(user.length);
-            // console.log(user.email);
             res.json({ code: "Email Address already exist" });
           } else {
-            //  console.log(req.files)
-            // console.log(req.files[0].path)
-            // console.log(req.files[1].path)
-            // console.log(req.files[2].path)
-          
-            // console.log(data);
             var hashedPassword = bcrypt.hashSync(data.password, 10);
             let userData;
             let truckData;
@@ -104,6 +90,8 @@ module.exports = {
                   social = false;
               else
                   social = data.social;  
+
+              console.log('language is ->',data.Language)    
               userData = {
                 email: data.email,
                 password: hashedPassword,
@@ -210,6 +198,32 @@ module.exports = {
         });
     } catch (e) {
       console.log("error updating User", e);
+      res.json({ code: "ABT0001" });
+    }
+  },
+  async updateProfilePhotos(req, res) {
+    try {
+      let reqBody = req.body;
+      User.find({ _id: reqBody._id })
+        .exec()
+        .then(async (user) => {
+          if (user.length < 1) {
+            res.json({ code: "User ID doesn't exist" });
+          } else {
+            let updateResult = await User.update(
+              { _id: reqBody._id },
+              { $set: { profilePhoto: reqBody.imgUrl } }
+            );
+            if (updateResult) {
+              console.log(updateResult);
+              res.json({ code: "ABT0000" });
+            } else {
+              res.json({ code: "ABT0001" });
+            }
+          }
+        });
+    } catch (e) {
+      console.log("error updating Status", e);
       res.json({ code: "ABT0001" });
     }
   },
