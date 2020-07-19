@@ -144,9 +144,9 @@ module.exports = {
                   userName: user[0].profileName,
                   userType: user[0].userType,
                   profileName: user[0].profileName,
-                  phoneNumber:user[0].phoneNumber
-
-                  
+                  phoneNumber:user[0].phoneNumber,
+                  profilePhoto:user[0].profilePhoto,
+                  Language:user[0].Language
                 },
                 "Bearer" //process.env.xyz
                 // {
