@@ -31,23 +31,8 @@ module.exports = {
                  console.log(Menus);
                 console.log(reqBody.Menu);
                  updateResults = await Menu.updateOne({_id: ObjectID(reqBody._id)}, {$set: {Menu:  reqBody.Menu}});
-                // let  MenuData= {
-                //   Menu : updateResult
-                // }
-                // //  const saveData = new Menu(MenuData);
-                //  let  updateResults = await saveData.save();
                   console.log('updated')                  
                  console.log(updateResults)
-                  
-                  // , function (err, raw) {
-                //   if(err)
-                //   {
-                //     console.log('err  is ',err)
-                //     res.send("ERROR") 
-                //   }
-                //   updateResult=raw;  
-                //   console.log(updateResult);
-                // })
                 if (updateResults) {
                   console.log(updateResults);
                   res.json({ code: "ABT0000" });

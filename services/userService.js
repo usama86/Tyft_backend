@@ -62,6 +62,7 @@ module.exports = {
                 },
                 selectedServingCusines: data.selectedServingCusines,
                 MenuID: menData._id,
+                categoryArray:data.categoryArray
               };
               console.log(truckData);
               

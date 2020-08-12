@@ -1,6 +1,6 @@
 const User = require("../models/userModel");
 const Truck = require("./../models/Truck");
-
+var ObjectID = require('mongodb').ObjectID;
 module.exports = {
   async getSupplier(req, res) {
     try {
@@ -266,5 +266,140 @@ module.exports = {
       res.json({ code: "ABT0001" });
     }
   },
-
+  async getSocialMedia(req, res) {
+    try {
+      const TruckInfo = await Truck.find({ _id: req.body._id });
+      
+      const SocialMedia = TruckInfo[0].socialMedia;
+      console.log('here in SocialMedia',SocialMedia)
+        res.send(SocialMedia);
+      } catch (e) {
+        console.log("Error getting Schedule", e);
+        res.json({ code: "ABT0001" });
+      }
+    },
+    async updateSocialMedia(req, res) {
+      try {
+        let reqBody = req.body;
+        Truck.find({ _id: reqBody._id })
+          .exec()
+          .then(async (truck) => {
+            if (truck.length < 1) {
+              res.json({ code: "Truck ID doesn't exist" });
+            } else {
+              let updateResult = await Truck.update(
+                { _id: reqBody._id },
+                { $set: { socialMedia: reqBody.socialMedia } }
+              );
+              if (updateResult) {
+                console.log(updateResult);
+                res.json({ code: "ABT0000" });
+              } else {
+                res.json({ code: "ABT0001" });
+              }
+            }
+          });
+      } catch (e) {
+        console.log("error updating Status", e);
+        res.json({ code: "ABT0001" });
+      }
+    },
+    async updateServingCusine(req, res) {
+      try {
+        let reqBody = req.body;
+        Truck.find({ _id: reqBody._id })
+          .exec()
+          .then(async (truck) => {
+            if (truck.length < 1) {
+              res.json({ code: "Truck ID doesn't exist" });
+            } else {
+              let updateResult = await Truck.update(
+                { _id: reqBody._id },
+                { $set: { selectedServingCusines: reqBody.selectedServingCusines } }
+              );
+              if (updateResult) {
+                console.log(updateResult);
+                res.json({ code: "ABT0000" });
+              } else {
+                res.json({ code: "ABT0001" });
+              }
+            }
+          });
+      } catch (e) {
+        console.log("error updating Status", e);
+        res.json({ code: "ABT0001" });
+      }
+    },
+    async updateTruckInfo(req, res) {
+      try {
+        let reqBody = req.body;
+        Truck.find({ _id: reqBody._id })
+          .exec()
+          .then(async (truck) => {
+            if (truck.length < 1) {
+              res.json({ code: "Truck ID doesn't exist" });
+            } else {
+              let updateResult = await Truck.update(
+                { _id: reqBody._id },
+                { $set: 
+                  { 
+                  truckName:reqBody.truckName,
+                  businessDesc:reqBody.businessDesc,
+                  truckContact:reqBody.truckContact,
+                  truckEmail:reqBody.truckEmail,
+                  truckCity:reqBody.truckCity,
+                  truckWebsite:reqBody.truckWebsite
+                  } 
+                }
+              );
+              if (updateResult) {
+                console.log(updateResult);
+                res.json({ code: "ABT0000" });
+              } else {
+                res.json({ code: "ABT0001" });
+              }
+            }
+          });
+      } catch (e) {
+        console.log("error updating Status", e);
+        res.json({ code: "ABT0001" });
+      }
+    },
+    async getCategory(req, res) {   //return the Category of specific user, need to send truck id
+      try {
+          const TruckInfo = await Truck.find({ _id: req.body._id });
+          const category = TruckInfo[0].categoryArray;
+          console.log('here in category',category)
+          res.send(category);
+        } catch (e) {
+          console.log("Error getting Category", e);
+          res.json({ code: "ABT0001" });
+        }
+    },
+    async updateCategory(req, res) {// _id of Truck
+      try {
+        let reqBody = req.body;
+        console.log( reqBody._id);
+        console.log(reqBody.categoryArrays);
+        // console.log( reqBody.Menu)
+        Truck.find({ _id: reqBody._id })
+          .exec()
+          .then(async (Trucks) => {
+            if (Trucks.length < 1) {
+              res.json({ code: "Truck ID doesn't exist" });
+            } else {
+              let updateResults;
+               updateResults = await Truck.updateOne({_id: reqBody._id}, {$set: {categoryArray:  reqBody.categoryArrays}});         
+              if (updateResults) {
+                res.json({ code: "ABT0000" });
+              } else {
+                res.json({ code: "ABT0001" });
+              }
+            }
+          });
+      } catch (e) {
+        console.log("error updating Truck Category", e);
+        res.json({ code: "ABT0001" });
+      }
+    },
 };
