@@ -304,6 +304,19 @@ module.exports = {
         res.json({ code: "ABT0001" });
       }
     },
+    
+    async getServingCusine(req, res) {
+      try {
+        const TruckInfo = await Truck.find({ _id: req.body._id });
+        
+        const selectedServingCusines = TruckInfo[0].selectedServingCusines;
+        console.log('here in selectedServingCusines',selectedServingCusines)
+          res.send(selectedServingCusines);
+        } catch (e) {
+          console.log("Error getting selectedServingCusines", e);
+          res.json({ code: "ABT0001" });
+        }
+    },
     async updateServingCusine(req, res) {
       try {
         let reqBody = req.body;

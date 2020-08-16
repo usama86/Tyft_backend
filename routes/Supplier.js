@@ -21,7 +21,8 @@ module.exports = (router) => {
 	  
 	  router.post('/getsocialmedia', supplierService.getSocialMedia)
 	  router.post('/updatesocialmedia', supplierService.updateSocialMedia)
-
+	
+	  router.post('/getservingcusine', supplierService.getServingCusine) 	
 	  router.post('/updateservingcusine', supplierService.updateServingCusine)
 	  router.post('/updatetruckinfo', supplierService.updateTruckInfo)
 

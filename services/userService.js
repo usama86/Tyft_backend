@@ -18,7 +18,7 @@ module.exports = {
       const Users = await User.find({email:req.body.email});
       res.send(Users);
     } catch (e) {
-      console.log("error getting forum posts", e);
+      console.log("error getting user", e);
       res.json({ code: "ABT0001" });
     }
   },
