@@ -313,10 +313,13 @@ module.exports = {
             if (truck.length < 1) {
               res.json({ code: "Truck ID doesn't exist" });
             } else {
-              let updateResult = await Truck.update(
-                { _id: reqBody._id },
-                { $set: { selectedServingCusines: reqBody.selectedServingCusines } }
-              );
+              console.log(truck)
+              console.log(reqBody.selectedServingCusines);
+              // let updateResult = await Truck.update(
+              //   { _id: reqBody._id },
+              //   { $set: { selectedServingCusines: reqBody.selectedServingCusines } }
+              // );
+              let updateResult = await Truck.updateOne({_id: ObjectID(reqBody._id)}, {$set: {selectedServingCusines:  reqBody.selectedServingCusines}});
               if (updateResult) {
                 console.log(updateResult);
                 res.json({ code: "ABT0000" });
