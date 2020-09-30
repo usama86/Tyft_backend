@@ -129,7 +129,7 @@ module.exports = {
         .then(async (user) => {
           if (user.length < 1) {
             console.log("HI")
-            res.json({ code: "Email Address already exist" });
+            res.json({ code: "Email Address doesn't exist" });
           }
           console.log(user.length);
           console.log(user[0])
