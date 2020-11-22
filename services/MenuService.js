@@ -7,27 +7,27 @@ var ObjectID = require('mongodb').ObjectID;
 module.exports = {
     async getSupplierMenu(req, res) {   //return the Menu of specific user, need to send Menu id
         try {
-           // const MenuInfo = await Menu.find({ _id: req.body._id},{"Menu.category":1}).sort( { "Menu.category": -1 });
+           const MenuInfo = await Menu.find({ _id: req.body._id},{"Menu.category":1}).sort( { "Menu.category": -1 });
 
-           const MenuInfo = Menu.aggregate([
-            // Initial document match (uses index, if a suitable one is available)
-            { $match: {
-                _id : req.body._id
-            }},
+          //  const MenuInfo = Menu.aggregate([
+          //   // Initial document match (uses index, if a suitable one is available)
+          //   { $match: {
+          //       _id : req.body._id
+          //   }},
         
-            // Expand the scores array into a stream of documents
-            { $unwind: '$Menu' },
+          //   // Expand the scores array into a stream of documents
+          //   { $unwind: '$Menu' },
         
-            // Filter to 'homework' scores 
-            // { $match: {
-            //     'Menu.type': 'homework'
-            // }},
+          //   // Filter to 'homework' scores 
+          //   // { $match: {
+          //   //     'Menu.type': 'homework'
+          //   // }},
         
-            // Sort in descending order
-            // { $sort: {
-            //     'Menu.category': 1
-            // }}
-          ])
+          //   // Sort in descending order
+          //   // { $sort: {
+          //   //     'Menu.category': 1
+          //   // }}
+          // ])
           console.log(MenuInfo);
           const MenuData = MenuInfo;
           res.json({ MenuData,code:'ABT0000' });
