@@ -32,10 +32,11 @@ module.exports = (router) => {
 	router.post('/saveForumPost', forumService.addNewForum);	
 	router.get('/getPopularPost', forumService.getPopular);
 */
-	  router.get('/getUser', userService.getAllUser);
+	  router.get('/getallusers', userService.getAllUser);
 	  router.post('/signup',upload.array('Image'), userService.signup);
 	  router.post('/login', userService.login);
-	  router.post('/updateuser',upload.array('Image'), userService.updateUser)
+	  router.post('/checkpassword', userService.checkPassword);
+	  router.post('/updateuser',upload.array('Image'), userService.updateUser);
 	  router.post('/getuser', userService.getUser)
 	  router.post('/updateprofileimage', userService.updateProfilePhotos)
 

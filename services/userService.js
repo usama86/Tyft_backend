@@ -166,6 +166,37 @@ module.exports = {
       res.json({ code: "ABT0001" });
     }
   },
+  async checkPassword(req, res) {
+    try {
+      console.log(req.body.email);
+      console.log(req.body.password)
+      
+      User.find({ email: req.body.email })
+        .exec()
+        .then(async (user) => {
+          if (user.length < 1) {
+            console.log("HI")
+            res.json({ code: "Email Address doesn't exist" });
+          }
+          // console.log(user.length);
+          // console.log(user[0])
+          bcrypt.compare(req.body.password, user[0].password, (err, result) => {
+            if (err) {
+              res.json({ message: "password failed" });
+            }
+            if (result) {
+              return res.json({ message: "correct"});
+            } else {
+              return res.json({ message: "Auth Failed" });
+            }
+          });
+        });
+      // let reqBody = req.body;
+    } catch (e) {
+      console.log("error creating New user", e);
+      res.json({ code: "ABT0001" });
+    }
+  },
   async updateUser(req, res) {
     try {
       let data = req.body;

@@ -181,6 +181,7 @@ module.exports = {
       const UserInfo = await User.find({ _id: req.body._id }); // send user ID
       const Favorite = UserInfo[0].favoriteTruck;
       let records = await Truck.find().where("_id").in(Favorite).exec();
+      console.log(records)
       console.log(records.length);
       if (records.length > 0) res.json({ code: "ABT0000" });
       else res.json({ code: "ABT0001" });
