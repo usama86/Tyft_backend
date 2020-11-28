@@ -193,7 +193,7 @@ module.exports = {
 			let data = req.body;
 			let lang = data.Language;
 			if (data && !data.Language) lang = 'English';
-			var hashedPassword = bcrypt.hashSync(data.password, 10);
+			// var hashedPassword = bcrypt.hashSync(data.password, 10);
 			User.find({ _id: data._id }).exec().then(async (truck) => {
 				if (truck.length < 1) {
 					res.json({ code: "Truck ID doesn't exist" });
@@ -203,12 +203,47 @@ module.exports = {
 						{
 							$set: {
 								email: data.email,
-								password: hashedPassword,
+								// password: hashedPassword,
 								profileName: data.profileName,
 								// profilePhoto: req.files[0].path,
 								phoneNumber: data.phoneNumber,
 								// userType: data.userType,
 								Language: lang
+							}
+						}
+					);
+					if (updateResult) {
+						console.log(updateResult);
+						res.json({ code: 'ABT0000' });
+					} else {
+						res.json({ code: 'ABT0001' });
+					}
+				}
+			});
+		} catch (e) {
+			console.log('error updating User', e);
+			res.json({ code: 'ABT0001' });
+		}
+	},
+	async updateUserPassword(req, res) {
+		try {
+			let data = req.body;
+			var hashedPassword = bcrypt.hashSync(data.password, 10);
+			User.find({ _id: data._id }).exec().then(async (truck) => {
+				if (truck.length < 1) {
+					res.json({ code: "User ID doesn't exist" });
+				} else {
+					let updateResult = await User.update(
+						{ _id: data._id },
+						{
+							$set: {
+								// email: data.email,
+								password: hashedPassword,
+								// profileName: data.profileName,
+								// profilePhoto: req.files[0].path,
+								// phoneNumber: data.phoneNumber,
+								// userType: data.userType,
+								// Language: lang
 							}
 						}
 					);
