@@ -40,7 +40,7 @@ module.exports = (router) => {
 	  router.post('/updateuserpassword', userService.updateUserPassword);
 	  router.post('/getuser', userService.getUser)
 	  router.post('/updateprofileimage', userService.updateProfilePhotos)
-
+	  router.post('/loginadmin', userService.loginAdmin);
 	  
 	return router;
 };
