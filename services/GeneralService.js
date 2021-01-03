@@ -1,5 +1,5 @@
 const General = require('../models/General');
-
+var ObjectID = require('mongodb').ObjectID;
 module.exports = {
 	async getRadius(req, res) {
 		try {
@@ -16,8 +16,8 @@ module.exports = {
 				MapRadius: 16093.4
 			};
 			const Radiuss = new General(Radius);
-            await Radiuss.save();
-            res.json({ code: 'ABT000' });
+			await Radiuss.save();
+			res.json({ code: 'ABT000' });
 		} catch (e) {
 			console.log('error saving Map Radius', e);
 			res.json({ code: 'ABT0001' });
@@ -26,22 +26,15 @@ module.exports = {
 	async UpdateRadius(req, res) {
 		try {
 			let reqBody = req.body;
-			General.find({ _id: reqBody._id }).exec().then(async (user) => {
-				if (user.length < 1) {
-					res.json({ code: "ID doesn't exist" });
-				} else {
-					let updateResult = await User.update(
-						{ _id: reqBody._id },
-						{ $set: { MapRadius: reqBody.MapRadius } }
-					);
-					if (updateResult) {
-						console.log(updateResult);
-						res.json({ code: 'ABT0000' });
-					} else {
-						res.json({ code: 'ABT0001' });
-					}
-				}
-			});
+			let updateResults = await General.updateOne(
+				{ _id: ObjectID(reqBody[0]._id) },
+				{ $set: { MapRadius: reqBody[0].MapRadius } }
+			);
+			if (updateResults) {
+				res.json({ code: 'ABT0000' });
+			} else {
+				res.json({ code: 'ABT0001' });
+			}
 		} catch (e) {
 			console.log('error updating Status', e);
 			res.json({ code: 'ABT0001' });
