@@ -68,6 +68,7 @@ let usersRouter = require('./routes/users')(express.Router());
 let SupplierRouter  = require('./routes/Supplier')(express.Router());
 let CusineRouter  = require('./routes/SevingCusine')(express.Router());
 let MenuRouter = require('./routes/Menu')(express.Router());
+let generalRouter = require('./routes/General')(express.Router());
 //app.use('/', indexRouter);
 
 //html
@@ -77,7 +78,7 @@ app.use('/api/users', usersRouter);
 app.use('/api/supplier', SupplierRouter);
 app.use('/api/servingcusine',CusineRouter);
 app.use('/api/menu',MenuRouter);
-
+app.use('/api/general',generalRouter);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

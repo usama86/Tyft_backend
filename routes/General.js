@@ -1,0 +1,10 @@
+const GeneralService = require('../services/GeneralService');
+
+
+module.exports = (router) => {
+
+	  router.get('/getradius', GeneralService.getRadius);
+	  router.post('/updateradius', GeneralService.UpdateRadius);
+
+	return router;
+};
