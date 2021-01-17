@@ -34,7 +34,7 @@ const Schema = new mongoose.Schema({
             longitude:String,
             latitude:String,
             Active:{type:Boolean,default:true},
-            isDeleted:{type:Boolean,default:true}
+            isDeleted:{type:Boolean,default:false}
           //  user:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
