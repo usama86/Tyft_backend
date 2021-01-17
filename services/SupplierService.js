@@ -403,6 +403,7 @@ module.exports = {
                   truckWebsite:reqBody.truckWebsite,
                   socialMedia:reqBody.socialMedia,
                   status:reqBody.status,
+                  Active:reqBody.Active
                   } 
                 }
               );

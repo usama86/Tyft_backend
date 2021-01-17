@@ -32,7 +32,8 @@ const Schema = new mongoose.Schema({
             // rating:{type:Number, default: 0},
             customerReview:Array,
             longitude:String,
-            latitude:String
+            latitude:String,
+            Active:{type:Boolean,default:true}
           //  user:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
 
