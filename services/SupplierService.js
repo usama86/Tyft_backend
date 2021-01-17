@@ -382,6 +382,43 @@ module.exports = {
         res.json({ code: "ABT0001" });
       }
     },
+    async updateTruck(req, res) {
+      try {
+        let reqBody = req.body;
+        Truck.find({ _id: reqBody._id })
+          .exec()
+          .then(async (truck) => {
+            if (truck.length < 1) {
+              res.json({ code: "Truck ID doesn't exist" });
+            } else {
+              let updateResult = await Truck.update(
+                { _id: reqBody._id },
+                { $set: 
+                  { 
+                  truckName:reqBody.truckName,
+                  businessDesc:reqBody.businessDesc,
+                  truckContact:reqBody.truckContact,
+                  truckEmail:reqBody.truckEmail,
+                  truckCity:reqBody.truckCity,
+                  truckWebsite:reqBody.truckWebsite,
+                  socialMedia:reqBody.socialMedia,
+                  status:reqBody.status,
+                  } 
+                }
+              );
+              if (updateResult) {
+                console.log(updateResult);
+                res.json({ code: "ABT0000" });
+              } else {
+                res.json({ code: "ABT0001" });
+              }
+            }
+          });
+      } catch (e) {
+        console.log("error updating Status", e);
+        res.json({ code: "ABT0001" });
+      }
+    },
     async getCategory(req, res) {   //return the Category of specific user, need to send truck id
       try {
           const TruckInfo = await Truck.find({ _id: req.body._id });

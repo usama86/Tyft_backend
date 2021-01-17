@@ -24,7 +24,8 @@ module.exports = (router) => {
 	
 	  router.post('/getservingcusine', supplierService.getServingCusine) 	
 	  router.post('/updateservingcusine', supplierService.updateServingCusine)
-	  router.post('/updatetruckinfo', supplierService.updateTruckInfo)
+	  router.post('/updatetruckinfo', supplierService.updateTruckInfo);
+	  router.post('/updatetruck', supplierService.updateTruck)
 
 	  router.post('/getcategory', supplierService.getCategory);
 	  router.post('/updatecategory', supplierService.updateCategory);
