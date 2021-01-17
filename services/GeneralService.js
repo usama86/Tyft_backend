@@ -50,14 +50,14 @@ module.exports = {
 			{
 				updateResults = await User.updateOne(
 					{ _id: ObjectID(reqBody._id) },
-					{ $set: { isDeleted: reqBody.isDeleted } }
+					{ $set: { isDeleted: true } }
 				);
 			}
 			else if(reqBody.type === 'Truck')
 			{
 				updateResults = await Truck.updateOne(
 					{ _id: ObjectID(reqBody._id) },
-					{ $set: { isDeleted: reqBody.isDeleted } }
+					{ $set: { isDeleted: true } }
 				);
 			}
 			
