@@ -19,7 +19,8 @@ const Schema = new mongoose.Schema({
     Language: String,
     favoriteTruck: Array,
     cusine: {type: mongoose.Schema.Types.ObjectId, ref: 'ServingCusine'},
-    social:{type:Boolean, default:false}
+    social:{type:Boolean, default:false},
+    isDeleted:{type:Boolean,default:true}
   });
 
 module.exports = mongoose.model('User', Schema);

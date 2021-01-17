@@ -1,4 +1,6 @@
 const General = require('../models/General');
+const User = require("../models/userModel");
+const Truck = require("./../models/Truck");
 var ObjectID = require('mongodb').ObjectID;
 module.exports = {
 	async getRadius(req, res) {
@@ -30,6 +32,35 @@ module.exports = {
 				{ _id: ObjectID(reqBody[0]._id) },
 				{ $set: { MapRadius: reqBody[0].MapRadius } }
 			);
+			if (updateResults) {
+				res.json({ code: 'ABT0000' });
+			} else {
+				res.json({ code: 'ABT0001' });
+			}
+		} catch (e) {
+			console.log('error updating Status', e);
+			res.json({ code: 'ABT0001' });
+		}
+	},
+	async deleteData(req, res) {
+		try {
+			let reqBody = req.body;
+			let updateResults;
+			if(reqBody.type === 'User')
+			{
+				updateResults = await User.updateOne(
+					{ _id: ObjectID(reqBody._id) },
+					{ $set: { isDeleted: reqBody.isDeleted } }
+				);
+			}
+			else if(reqBody.type === 'Truck')
+			{
+				updateResults = await Truck.updateOne(
+					{ _id: ObjectID(reqBody._id) },
+					{ $set: { isDeleted: reqBody.isDeleted } }
+				);
+			}
+			
 			if (updateResults) {
 				res.json({ code: 'ABT0000' });
 			} else {
