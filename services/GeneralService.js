@@ -1,7 +1,9 @@
 const General = require('../models/General');
-const User = require("../models/userModel");
-const Truck = require("./../models/Truck");
+const User = require('../models/userModel');
+const Truck = require('./../models/Truck');
 var ObjectID = require('mongodb').ObjectID;
+const fetch = require('node-fetch');
+
 module.exports = {
 	async getRadius(req, res) {
 		try {
@@ -46,26 +48,50 @@ module.exports = {
 		try {
 			let reqBody = req.body;
 			let updateResults;
-			if(reqBody.type === 'User')
-			{
-				updateResults = await User.updateOne(
-					{ _id: ObjectID(reqBody._id) },
-					{ $set: { isDeleted: true } }
-				);
+			if (reqBody.type === 'User') {
+				updateResults = await User.updateOne({ _id: ObjectID(reqBody._id) }, { $set: { isDeleted: true } });
+			} else if (reqBody.type === 'Truck') {
+				updateResults = await Truck.updateOne({ _id: ObjectID(reqBody._id) }, { $set: { isDeleted: true } });
 			}
-			else if(reqBody.type === 'Truck')
-			{
-				updateResults = await Truck.updateOne(
-					{ _id: ObjectID(reqBody._id) },
-					{ $set: { isDeleted: true } }
-				);
-			}
-			
+
 			if (updateResults) {
 				res.json({ code: 'ABT0000' });
 			} else {
 				res.json({ code: 'ABT0001' });
 			}
+		} catch (e) {
+			console.log('error updating Status', e);
+			res.json({ code: 'ABT0001' });
+		}
+	},
+	async UploadImage(req, res) {
+		try {
+			let reqBody = req.body;
+
+			const file = req.file;
+			// var myHeaders = new Headers();
+			// myHeaders.append('Content-Type', 'multipart/form-data');
+			// myHeaders.append('Accept', 'application/json');
+			var requestOptions = {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'multipart/form-data',
+					'Accept': 'application/json',
+					'upload_preset':'tyftBackend'
+				},
+				body: file,
+				redirect: 'follow'
+			};
+			fetch('https://api.cloudinary.com/v1_1/hmrzthc6f/image/upload', requestOptions)
+				.then((response) => response.json())
+				.then(async (result) => {
+					console.log(result);
+					res.json({ url: result.url });
+				})
+				.catch((error) => {
+					console.log('error', error);
+					// setIsLoading(false);
+				});
 		} catch (e) {
 			console.log('error updating Status', e);
 			res.json({ code: 'ABT0001' });
