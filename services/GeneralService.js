@@ -69,17 +69,25 @@ module.exports = {
 			let reqBody = req.body;
 
 			const file = req.file;
+
+			var formdata = new FormData();
+			formdata.append('file', {
+				uri: file.uri,
+				type: 'image/jpeg',
+				name: val.fileName,
+			  });
+			formdata.append('upload_preset', 'tyftBackend');
 			// var myHeaders = new Headers();
 			// myHeaders.append('Content-Type', 'multipart/form-data');
 			//  file.append('Accept', 'application/json');
-			file.append('upload_preset', 'tyftBackend');
+			// file.append('upload_preset', 'tyftBackend');
 			var requestOptions = {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					'Accept': 'application/json',
 				},
-				body: file,
+				body: formdata,
 				redirect: 'follow'
 			};
 			fetch('https://api.cloudinary.com/v1_1/hmrzthc6f/image/upload', requestOptions)
