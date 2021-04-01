@@ -3,6 +3,7 @@ const User = require('../models/userModel');
 const Truck = require('./../models/Truck');
 var ObjectID = require('mongodb').ObjectID;
 const fetch = require('node-fetch');
+const formData = require("express-form-data");
 
 module.exports = {
 	async getRadius(req, res) {
@@ -69,14 +70,14 @@ module.exports = {
 			let reqBody = req.body;
 
 			const file = req.file;
-
-			var formdata = new FormData();
-			formdata.append('file', {
+			console.log(file.uri)
+	
+			formData.append('file', {
 				uri: file.uri,
 				type: 'image/jpeg',
 				name: val.fileName,
 			  });
-			formdata.append('upload_preset', 'tyftBackend');
+			formData.append('upload_preset', 'tyftBackend');
 			// var myHeaders = new Headers();
 			// myHeaders.append('Content-Type', 'multipart/form-data');
 			//  file.append('Accept', 'application/json');
@@ -87,7 +88,7 @@ module.exports = {
 					'Content-Type': 'multipart/form-data',
 					'Accept': 'application/json',
 				},
-				body: formdata,
+				body: formData,
 				redirect: 'follow'
 			};
 			fetch('https://api.cloudinary.com/v1_1/hmrzthc6f/image/upload', requestOptions)
