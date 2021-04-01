@@ -4,6 +4,7 @@ const Truck = require('./../models/Truck');
 var ObjectID = require('mongodb').ObjectID;
 const fetch = require('node-fetch');
 const formData = require("express-form-data");
+var cloudinary = require('cloudinary').v2;
 
 module.exports = {
 	async getRadius(req, res) {
@@ -70,37 +71,47 @@ module.exports = {
 			let reqBody = req.body;
 
 			const file = req.file;
-			console.log(file.uri)
-	
-			formData.append('file', {
-				uri: __dirname + './../uploads/' + file.originalname,
-				type: 'image/jpeg',
-				name: file.fileName,
+			console.log(reqBody)
+			cloudinary.config({ 
+				cloud_name: 'hmrzthc6f', 
+				api_key: '416752196531331', 
+				api_secret: 'Sckg2t-RYRxxu1JgY_KWP7FDLak' 
 			  });
-			formData.append('upload_preset', 'tyftBackend');
-			// var myHeaders = new Headers();
-			// myHeaders.append('Content-Type', 'multipart/form-data');
-			//  file.append('Accept', 'application/json');
-			// file.append('upload_preset', 'tyftBackend');
-			var requestOptions = {
-				method: 'POST',
-				headers: {
-					'Content-Type': 'multipart/form-data',
-					'Accept': 'application/json',
-				},
-				body: formData,
-				redirect: 'follow'
-			};
-			fetch('https://api.cloudinary.com/v1_1/hmrzthc6f/image/upload', requestOptions)
-				.then((response) => response.json())
-				.then(async (result) => {
-					console.log(result);
-					res.json({ url: result.url });
-				})
-				.catch((error) => {
-					console.log('error', error);
-					// setIsLoading(false);
-				});
+			cloudinary.uploader.upload(__dirname + './../uploads/'+file.originalname, function(error, result) {
+				console.log("I am result -> ", result)
+				console.log("ERROR", error)
+				res.json({ code: 'ABT0000',url: result.url });
+			});
+			// console.log(file);
+			// formData.append('file', {
+			// 	uri: __dirname + './../uploads/' + file.originalname,
+			// 	type: 'image/jpeg',
+			// 	name: file.fileName,
+			//   });
+			// formData.append('upload_preset', 'tyftBackend');
+			// // var myHeaders = new Headers();
+			// // myHeaders.append('Content-Type', 'multipart/form-data');
+			// //  file.append('Accept', 'application/json');
+			// // file.append('upload_preset', 'tyftBackend');
+			// var requestOptions = {
+			// 	method: 'POST',
+			// 	headers: {
+			// 		'Content-Type': 'multipart/form-data',
+			// 		'Accept': 'application/json',
+			// 	},
+			// 	body: formData,
+			// 	redirect: 'follow'
+			// };
+			// fetch('https://api.cloudinary.com/v1_1/hmrzthc6f/image/upload', file)
+			// 	.then((response) => response.json())
+			// 	.then(async (result) => {
+			// 		console.log(result);
+			// 		res.json({ url: result.url });
+			// 	})
+			// 	.catch((error) => {
+			// 		console.log('error', error);
+			// 		// setIsLoading(false);
+			// 	});
 		} catch (e) {
 			console.log('error updating Status', e);
 			res.json({ code: 'ABT0001' });
