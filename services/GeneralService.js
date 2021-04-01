@@ -71,13 +71,13 @@ module.exports = {
 			const file = req.file;
 			// var myHeaders = new Headers();
 			// myHeaders.append('Content-Type', 'multipart/form-data');
-			// myHeaders.append('Accept', 'application/json');
+			//  file.append('Accept', 'application/json');
+			file.append('upload_preset', 'tyftBackend');
 			var requestOptions = {
 				method: 'POST',
 				headers: {
 					'Content-Type': 'multipart/form-data',
 					'Accept': 'application/json',
-					'upload_preset':'tyftBackend'
 				},
 				body: file,
 				redirect: 'follow'
