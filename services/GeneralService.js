@@ -73,9 +73,9 @@ module.exports = {
 			console.log(file.uri)
 	
 			formData.append('file', {
-				uri: file.uri,
+				uri: __dirname + './../uploads/' + file.originalname,
 				type: 'image/jpeg',
-				name: val.fileName,
+				name: file.fileName,
 			  });
 			formData.append('upload_preset', 'tyftBackend');
 			// var myHeaders = new Headers();
