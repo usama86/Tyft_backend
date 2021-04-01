@@ -77,10 +77,10 @@ module.exports = {
 				api_key: '416752196531331', 
 				api_secret: 'Sckg2t-RYRxxu1JgY_KWP7FDLak' 
 			  });
-			cloudinary.uploader.upload(__dirname + './../uploads/'+file.originalname, function(error, result) {
+			cloudinary.uploader.upload(__dirname + './../uploads/'+req.fileName, function(error, result) {
 				console.log("I am result -> ", result)
 				console.log("ERROR", error)
-				res.json({ code: 'ABT0000',url: result.url });
+				res.json({ code:"ABT0000",url: result.url });
 			});
 			// console.log(file);
 			// formData.append('file', {
