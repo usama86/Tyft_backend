@@ -29,32 +29,23 @@ module.exports =  {
   async updateCusine(req, res) {// _id of Menu and schedule object to update
     try {
       let reqBody = req.body;
-      console.log( reqBody._id);
-      // console.log( reqBody.Menu)
-      Cusine.find({ _id: reqBody._id })
-        .exec()
-        .then(async (Cus) => {
-          if (Cus.length < 1) {
-            res.json({ code: "Cusine ID doesn't exist" });
-          } else {
+    
             let updateResults;
-      
             console.log(reqBody.cusine);
              updateResults = await Cusine.updateOne({_id: ObjectID(reqBody._id)}, {$set: {cusine:  reqBody.cusine}});
-              // console.log('updated')                  
-            //  console.log(updateResults)
             if (updateResults) {
               // console.log(updateResults);
               res.json({ code: "ABT0000" });
             } else {
               res.json({ code: "ABT0001" });
             }
+          // }
+          }catch(e)
+          {
+            res.json({ e:e });
           }
-        });
-    } catch (e) {
-      console.log("error updating Menu", e);
-      res.json({ code: "ABT0001" });
-    }
+            
+   
   },
   async deleteCusines(req, res)
   {
