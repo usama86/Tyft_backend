@@ -1,5 +1,7 @@
 
-const Cusine = require('./../models/ServingCusine')
+const Cusine = require('./../models/ServingCusine');
+var ObjectID = require('mongodb').ObjectID;
+
 module.exports =  {
   async getCusines(req, res) {
     try {
@@ -30,19 +32,16 @@ module.exports =  {
     try {
       let reqBody = req.body;
     
-            let updateResults;
-            console.log(reqBody.cusine);
+             let updateResults;
+             console.log(reqBody._id);
              updateResults = await Cusine.updateOne({_id: ObjectID(reqBody._id)}, {$set: {cusine:  reqBody.cusine}});
-            if (updateResults) {
-              // console.log(updateResults);
-              res.json({ code: "ABT0000" });
-            } else {
-              res.json({ code: "ABT0001" });
-            }
+             res.json({ code: "ABT0000" });
+            
           // }
           }catch(e)
           {
-            res.json({ e:e });
+            console.log(e);
+            res.json(e);
           }
             
    
