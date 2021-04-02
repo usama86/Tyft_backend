@@ -5,7 +5,8 @@ var ObjectID = require('mongodb').ObjectID;
 const fetch = require('node-fetch');
 const formData = require("express-form-data");
 var cloudinary = require('cloudinary').v2;
-
+const Datauri = require('datauri');
+const path = require('path');
 module.exports = {
 	async getRadius(req, res) {
 		try {
@@ -69,12 +70,17 @@ module.exports = {
 	async UploadImage(req, res) {
 		try {
 			let reqBody = req.body;
-
+			const dUri = new Datauri();
+			const paths= dUri.format(path.extname(req.file.originalname).toString(), req.file.buffer);
 			const file = req.file;
 			console.log(reqBody)
-			
-			cloudinary.uploader.upload(__dirname + './../uploads/'+req.fileName, function(error, result) {
-				console.log("I am result -> ", result)
+			cloudinary.config({ 
+				cloud_name: 'hmrzthc6f', 
+				api_key: '416752196531331', 
+				api_secret: 'Sckg2t-RYRxxu1JgY_KWP7FDLak' 
+			  });
+			cloudinary.uploader.upload(paths, function(error, result) {
+				console.log("I am result -> ", dUri.format)
 				console.log("ERROR", error)
 				res.json({ code:"ABT0000",url: result.url });
 			});

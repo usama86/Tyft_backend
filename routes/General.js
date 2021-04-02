@@ -1,5 +1,5 @@
 const GeneralService = require('../services/GeneralService');
-
+const multer = require('multer');
 
 
 // var storage = multer.diskStorage({
@@ -9,11 +9,11 @@ const GeneralService = require('../services/GeneralService');
 // 	filename: function (req, file, cb) {
 //         // console.log(file);
 // 	  cb(null,"test" + "." + file.mimetype.split("/")[1])
-// 	  req.fileName = "test" + "." + file.mimetype.split("/")[1];
+// 	  req.fileName = "test" + "." + file.mimetype.split("/")[1]
 // 	}
 //   })
-   
-//   const upload = multer({ storage: storage })
+  const storage = multer.memoryStorage();
+  const upload = multer({ storage: storage })
 
 module.exports = (router) => {
 
@@ -21,7 +21,6 @@ module.exports = (router) => {
       router.post('/addradius', GeneralService.AddRadius);
 	  router.post('/updateradius', GeneralService.UpdateRadius);
       router.post('/delete', GeneralService.deleteData);
-    //   router.post('/uploadImage',upload.single('file'),)
-	 
+    //   router.post('/uploadImage',upload.single('file'), GeneralService.UploadImage)
 	return router;
 };

@@ -88,12 +88,12 @@ app.use('/api/general',generalRouter);
 app.post('/api/general/uploadImage', upload, (req, res, next) => {
   console.log('hi')
   const file = dataUri(req).content;
-  console.log('hissssss',file)
+  // console.log('hissssss',file)
   cloudinary.uploads(file).then((result) => {
     res.json({ code:"ABT0000",url: result.url });
 
   }).catch(e=>{
-    console.log(e);
+    // console.log(e);
   })
   
 });
