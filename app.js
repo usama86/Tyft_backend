@@ -9,6 +9,10 @@ const config = require('config');
 const dotenv = require('dotenv');
 var http = require('http');
 var fs = require('fs');
+const cloudinary = require('./util/cloudconfig');
+const upload = require('./util/multerconfig').upload;
+const dataUri = require('./util/multerconfig').dataUri;
+
 const router = express.Router();
 dotenv.config();
 const rateLimit = require('express-rate-limit');
@@ -69,6 +73,7 @@ let SupplierRouter  = require('./routes/Supplier')(express.Router());
 let CusineRouter  = require('./routes/SevingCusine')(express.Router());
 let MenuRouter = require('./routes/Menu')(express.Router());
 let generalRouter = require('./routes/General')(express.Router());
+
 //app.use('/', indexRouter);
 
 //html
@@ -79,6 +84,19 @@ app.use('/api/supplier', SupplierRouter);
 app.use('/api/servingcusine',CusineRouter);
 app.use('/api/menu',MenuRouter);
 app.use('/api/general',generalRouter);
+
+app.post('/api/general/uploadImage', upload, (req, res, next) => {
+  console.log('hi')
+  const file = dataUri(req).content;
+  console.log('hissssss',file)
+  cloudinary.uploads(file).then((result) => {
+    res.json({ code:"ABT0000",url: result.url });
+
+  }).catch(e=>{
+    console.log(e);
+  })
+  
+});
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

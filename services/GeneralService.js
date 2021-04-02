@@ -72,11 +72,7 @@ module.exports = {
 
 			const file = req.file;
 			console.log(reqBody)
-			cloudinary.config({ 
-				cloud_name: 'hmrzthc6f', 
-				api_key: '416752196531331', 
-				api_secret: 'Sckg2t-RYRxxu1JgY_KWP7FDLak' 
-			  });
+			
 			cloudinary.uploader.upload(__dirname + './../uploads/'+req.fileName, function(error, result) {
 				console.log("I am result -> ", result)
 				console.log("ERROR", error)
