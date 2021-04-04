@@ -10,7 +10,11 @@ const upload = multer({ storage: storage }).any();
 const dUri = new DataURIParser();
 
 const dataUri = (req) => {
-    // console.log(req.files[0].originalname);
+    console.log(req.files && !req.files[0].originalname);
+    if(req.files && !req.files[0].originalname)
+    {
+        req.files[0].originalname='randomImage';
+    }
     try{
         return dUri.format(path.extname(req.files[0].originalname).toString(), req.files[0].buffer);
     }
