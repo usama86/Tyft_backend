@@ -107,7 +107,7 @@ module.exports = {
 							userType: data.userType,
 							userID: userDatas._id,
 						}
-						const notificationData = new User(Notifications);
+						const notificationData = new Notification(Notifications);
 						await notificationData.save();
 						
 						res.json({ code: 'ABT0000' });
