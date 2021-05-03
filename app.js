@@ -73,7 +73,7 @@ let SupplierRouter  = require('./routes/Supplier')(express.Router());
 let CusineRouter  = require('./routes/SevingCusine')(express.Router());
 let MenuRouter = require('./routes/Menu')(express.Router());
 let generalRouter = require('./routes/General')(express.Router());
-
+let NotificationRouter = require('./routes/Notification')(express.Router());
 //app.use('/', indexRouter);
 
 //html
@@ -84,6 +84,7 @@ app.use('/api/supplier', SupplierRouter);
 app.use('/api/servingcusine',CusineRouter);
 app.use('/api/menu',MenuRouter);
 app.use('/api/general',generalRouter);
+app.use('/api/notification',NotificationRouter);
 
 app.post('/api/general/uploadImage', upload, (req, res, next) => {
   console.log('hi')
