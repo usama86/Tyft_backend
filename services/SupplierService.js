@@ -94,7 +94,7 @@ module.exports = {
   },
   async getAllTruck(req, res) {
     try {
-      const TruckInfo = await Truck.find({});
+      const TruckInfo = await Truck.find({Active:true});
       console.log(TruckInfo);
       res.json({ TruckInfo });
     } catch (e) {

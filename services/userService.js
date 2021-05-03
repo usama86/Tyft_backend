@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const Truck = require('./../models/Truck');
 const Menu = require('./../models/Menu');
+const Notification = require('./../models/Notification');
 const jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
 module.exports = {
@@ -101,6 +102,14 @@ module.exports = {
 						console.log(userData);
 						const userDatas = new User(userData);
 						await userDatas.save();
+						let Notifications={
+							profileName: data.profileName,
+							userType: data.userType,
+							userID: userDatas._id,
+						}
+						const notificationData = new User(Notifications);
+						await notificationData.save();
+						
 						res.json({ code: 'ABT0000' });
 					} else {
 					}

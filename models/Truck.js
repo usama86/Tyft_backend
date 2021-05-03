@@ -33,7 +33,7 @@ const Schema = new mongoose.Schema({
             customerReview:Array,
             longitude:String,
             latitude:String,
-            Active:{type:Boolean,default:true},
+            Active:{type:Boolean,default:false},
             isDeleted:{type:Boolean,default:false}
           //  user:{type: mongoose.Schema.Types.ObjectId, ref: 'User'}
 });
